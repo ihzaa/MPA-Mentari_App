@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\front\auth\loginController as AdminLogin;
+use App\Http\Controllers\backend\kategoriController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,5 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function () {
+    // Route::get('/kategori', function () {
+    //     return view('BackEnd.pages.kategori');
+    // })->name('kategori');
 
+    Route::get('/kategori', [kategoriController::class, 'getKategori'])->name('kategori_get');
 });

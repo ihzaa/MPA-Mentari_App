@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{env('APP_NAME')}} | @yield('page_title')</title>
+    <title>{{ env('APP_NAME') }} | @yield('page_title')</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('backend') }}/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('backend') }}/dist/css/adminlte.min.css">
+    @yield('cssAfter')
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -206,7 +207,7 @@
 
         <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
-                <b>{{env('APP_NAME')}}</b>
+                <b>{{ env('APP_NAME') }}</b>
             </div>
             <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
             reserved.
@@ -228,6 +229,7 @@
     <script src="{{ asset('backend') }}/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('backend') }}/dist/js/demo.js"></script>
+    @yield('jsAfter')
 </body>
 
 </html>
