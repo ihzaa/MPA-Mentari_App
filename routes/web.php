@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('FrontEnd.templates.all');
 });
+Route::get('/admin', function () {
+    return view('BackEnd.templates.all');
+});
