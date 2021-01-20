@@ -18,8 +18,8 @@
                 <div class="card">
                     <div class="card-header d-flex">
                         <h3 class="card-title my-auto">List Kategori Produk</h3>
-                        <button type="button" class="btn btn-success btn-sm ml-auto" data-toggle="modal"
-                            data-target="#modal-default"><small><i class="fas fa-plus">
+                        <button type="button" class="btn btn-success btn-sm ml-auto" id="tambahKategori"><small><i
+                                    class="fas fa-plus">
                                 </i></small>
                             Tambah
                             Kategori</button>
@@ -42,43 +42,17 @@
                                         <td align="center">1</td>
                                         <td>{{ $d->name }}
                                         </td>
-                                        <td>Win 95+</td>
+                                        <td class="jumlah">{{ $d->items_count }}</td>
                                         <td> <button type="button" class="btn btn-block btn-warning btn-sm">Lihat</button>
                                         </td>
                                         <td class="d-flex justify-content-around"><button type="button"
-                                                class="btn btn-primary btn-sm"><i class="fas fa-edit">
-                                                </i></button><button type="button" class="btn btn-danger btn-sm"><i
-                                                    class="fas fa-trash">
+                                                class="btn btn-primary btn-sm btn-edit" data-id="{{ $d->id }}"
+                                                data-name="{{ $d->name }}"><i class="fas fa-edit">
+                                                </i></button><button type="button" class="btn btn-danger btn-sm btn-hapus"
+                                                data-id="{{ $d->id }}" data-name="{{ $d->name }}"><i class="fas fa-trash">
                                                 </i></button></td>
                                     </tr>
                                 @endforeach
-                                <tr>
-                                    <td>2</td>
-                                    <td>Internet
-                                        Explorer 5.0
-                                    </td>
-                                    <td>Win 95+</td>
-                                    <td>5</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Internet
-                                        Explorer 5.5
-                                    </td>
-                                    <td>Win 95+</td>
-                                    <td>5.5</td>
-                                    <td>5.5</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Internet
-                                        Explorer 6
-                                    </td>
-                                    <td>Win 98+</td>
-                                    <td>6</td>
-                                    <td>6</td>
-                                </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -99,26 +73,27 @@
         <!-- /.row -->
     </div>
 
-    <div class="modal fade" id="modal-default">
+    <div class="modal fade" id="modal-kategori">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Tambah Kategori</h4>
+                    <h4 class="modal-title" id="modal-title"></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    {{-- <form
-                        action="{{ request()->is('*/blog/tambah*') ? route('admin_tambah_blog') : route('admin_edit_blog', ['id' => $data['blog']->id]) }}"
-                        method="POST" id="form_kategori"> --}}
+                    <form action="" method="POST" id="form_kategori">
+                        @csrf
                         <div class="form-group">
                             <label for="namaKategori">Nama Kategori</label>
-                            <input type="text" class="form-control" id="namaKategori" placeholder="Masukkan Nama">
+                            <input type="text" class="form-control @error('namaKategori')is-invalid @enderror"
+                                id="namaKategori" name="namaKategori" placeholder="Masukkan Nama Kategori">
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-primary ml-auto">Simpan</button>
+                            <button type="submit" class="btn btn-primary ml-auto">Simpan</button>
                         </div>
+                    </form>
                 </div>
                 <!-- /.modal-content -->
             </div>
@@ -132,7 +107,13 @@
         <script src="{{ asset('backend') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
         <script src="{{ asset('backend') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
         <script src="{{ asset('backend') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+        <script src="{{ asset('backend') }}/plugins/sweetalert2/sweetalert2.all.min.js"></script>
         <script>
+            const url = {
+                tambah: "{{ route('admin_kategori_add') }}",
+                edit: "{{ route('admin_kategori_edit', ['id' => 'sementara']) }}",
+                hapus: "{{ route('admin_kategori_hapus', ['id' => 'sementara']) }}",
+            };
             $(function() {
                 $('#kategori').DataTable({
                     "paging": true,
@@ -145,5 +126,78 @@
                 });
             });
 
+            $('#tambahKategori').click(
+                function() {
+                    openModal({
+                        title: 'Tambah Kategori',
+                        url: url.tambah
+                    })
+                }
+            )
+
+            $('.btn-edit').click(
+                function() {
+                    let temp = url.edit
+                    openModal({
+                        title: 'Edit Kategori',
+                        url: temp.replace('sementara', $(this).data('id')),
+                        value: $(this).data('name')
+                    })
+                }
+            )
+
+            $('.btn-hapus').click(
+                function() {
+                    let parent = $(this).parent().parent().find(".jumlah").html();
+                    if (parent != 0) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Kategori masih memiliki produk!'
+                        })
+                    } else {
+                        Swal.fire({
+                            title: 'Yakin mau menghapus kategori ' + $(this).data('name') + '?',
+                            icon: 'question',
+                            showCancelButton: true,
+                            confirmButtonText: `Ya`,
+                            cancelButtonText: `Tidak`,
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            if (result.isConfirmed) {
+                                let temp = url.hapus
+                                window.location.replace(temp.replace('sementara', $(this).data('id')))
+                            }
+                        })
+                    }
+                }
+            )
+
+            function openModal(data) {
+                $('#modal-kategori').modal('show');
+                $('#modal-title').html(data.title);
+                $('#modal-kategori form').attr('action', data.url);
+                $('#namaKategori').val(data.value)
+            }
+
         </script>
+        @if (Session::get('icon'))
+            <script>
+                Swal.fire({
+                    icon: "{{ Session::get('icon') }}",
+                    title: "{{ Session::get('title') }}",
+                    text: "{{ Session::get('text') }}",
+                });
+
+            </script>
+        @endif
+        @if ($errors->any())
+            <script>
+                openModal({
+                    title: 'Tambah Kategori',
+                    url: url.tambah
+                })
+
+            </script>
+        @endif
     @endsection

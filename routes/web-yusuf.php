@@ -22,4 +22,7 @@ Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function
     // })->name('kategori');
 
     Route::get('/kategori', [kategoriController::class, 'getKategori'])->name('kategori_get');
+    Route::post('/tambahKategori', [kategoriController::class, 'addKategori'])->name('kategori_add');
+    Route::post('/editKategori/{id}', [kategoriController::class, 'editKategori'])->name('kategori_edit');
+    Route::get('/hapusKategori/{id}', [kategoriController::class, 'hapusKategori'])->name('kategori_hapus');
 });
