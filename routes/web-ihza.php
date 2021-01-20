@@ -13,22 +13,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('FrontEnd.templates.all');
-});
-
-
-Route::get('4dm1n/login', [AdminLogin::class, 'getLogin'])->name('admin_login_get')->middleware('guest');
-Route::post('4dm1n/login', [AdminLogin::class, 'postLogin'])->name('admin_login_post')->middleware('guest');
-
 Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function () {
-    Route::get('logout', [AdminLogin::class, 'logout'])->name('logout');
 
-    Route::get('/', function () {
-        return view('BackEnd.templates.all');
-    })->name('index');
-    Route::get('/abc', function () {
-        return view('BackEnd.templates.all');
-    });
 });

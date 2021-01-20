@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\admin;
+use App\Models\customer;
+
 return [
 
     /*
@@ -36,15 +39,25 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        // 'web' => [
+        //     'driver' => 'session',
+        //     'provider' => 'users',
+        // ],
+
+        // 'api' => [
+        //     'driver' => 'token',
+        //     'provider' => 'users',
+        //     'hash' => false,
+        // ],
+
+        'admin' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'admins',
         ],
 
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'customers',
         ],
     ],
 
@@ -66,11 +79,20 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        // 'users' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\User::class,
+        // ],
+
+        'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => admin::class,
         ],
 
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => customer::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -93,12 +115,12 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
+        // 'users' => [
+        //     'provider' => 'users',
+        //     'table' => 'password_resets',
+        //     'expire' => 60,
+        //     'throttle' => 60,
+        // ],
     ],
 
     /*
