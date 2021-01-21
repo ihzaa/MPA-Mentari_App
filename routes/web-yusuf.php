@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\front\auth\loginController as AdminLogin;
 use App\Http\Controllers\backend\kategoriController;
 use Illuminate\Support\Facades\Route;
 

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\front\auth\loginController as AdminLogin;
+use App\Http\Controllers\backend\auth\loginController as AdminLogin;
 use Illuminate\Support\Facades\Route;
 
 /*
