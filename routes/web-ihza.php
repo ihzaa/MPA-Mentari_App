@@ -15,5 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function () {
-    Route::get('product/all', Index::class);
+    Route::prefix('kategori')->group(function () {
+        Route::get('{id_items}/items', Index::class)->name('list.item.by.category');
+    });
 });
