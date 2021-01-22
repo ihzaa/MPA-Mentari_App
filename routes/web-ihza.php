@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\front\auth\loginController as AdminLogin;
+use App\Http\Livewire\Admin\Items\Index;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function () {
 
+Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function () {
+    Route::get('product/all', Index::class);
 });

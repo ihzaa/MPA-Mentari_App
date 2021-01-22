@@ -21,5 +21,8 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'password' => Hash::make('123')
         ]);
+
+        $this->call(category::class);
+        // $this->call(item::class);
     }
 }

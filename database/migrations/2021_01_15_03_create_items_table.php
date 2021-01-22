@@ -18,7 +18,6 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->integer('price');
             $table->text('description');
-            $table->string('image');
             $table->integer('stock');
             // $table->unsignedBigInteger('category_id');
             $table->timestamps();
