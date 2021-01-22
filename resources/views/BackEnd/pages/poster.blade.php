@@ -17,34 +17,32 @@
 
                 <div class="card">
                     <div class="card-header d-flex">
-                        <h3 class="card-title my-auto">List Kategori Produk</h3>
-                        <button type="button" class="btn btn-success btn-sm ml-auto" id="tambahKategori"><small><i
+                        <h3 class="card-title my-auto">List Poster</h3>
+                        <button type="button" class="btn btn-success btn-sm ml-auto" id="tambahPoster"><small><i
                                     class="fas fa-plus">
                                 </i></small>
                             Tambah
-                            Kategori</button>
+                            Poster</button>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="kategori" class="table table-bordered table-striped">
+                        <table id="poster" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th style="width:5%">No</th>
-                                    <th style="width:55%">Nama Kategori</th>
-                                    <th style="width:15%">Jumlah Produk</th>
-                                    <th style="width:15%">List Produk</th>
+                                    <th style="width:45%">Gambar</th>
+                                    <th style="width:15%">Judul</th>
+                                    <th style="width:25%">Deskripsi</th>
                                     <th style="width:10%">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data['kategori'] as $d)
+                                @foreach ($data['poster'] as $d)
                                     <tr>
                                         <td align="center">{{ $loop->iteration }}</td>
-                                        <td>{{ $d->name }}
-                                        </td>
-                                        <td class="jumlah">{{ $d->items_count }}</td>
-                                        <td> <button type="button" class="btn btn-block btn-warning btn-sm">Lihat</button>
-                                        </td>
+                                        <td><img src="{{ asset($d->image) }}" alt="" width="200"></td>
+                                        <td>{{ $d->title }}</td>
+                                        <td>{{ $d->description }}</td>
                                         <td class="d-flex justify-content-around"><button type="button"
                                                 class="btn btn-primary btn-sm btn-edit" data-id="{{ $d->id }}"
                                                 data-name="{{ $d->name }}"><i class="fas fa-edit">
@@ -57,9 +55,9 @@
                             <tfoot>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Kategori</th>
-                                    <th>Jumlah Produk</th>
-                                    <th>List Produk</th>
+                                    <th>Gambar</th>
+                                    <th>Judul</th>
+                                    <th>Deskripsi</th>
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>
@@ -74,7 +72,7 @@
         <!-- /.row -->
     </div>
 
-    <div class="modal fade" id="modal-kategori">
+    <div class="modal fade" id="modal-poster">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -84,12 +82,45 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="POST" id="form_kategori">
+                    <form action="" method="POST" id="form_poster">
                         @csrf
+                        {{-- <div class="form-group">
+                            <label for="gambarPoster">Gambar</label>
+                            <input type="text" class="form-control @error('gambarPoster')is-invalid @enderror"
+                                id="gambarPoster" name="gambarPoster" placeholder="pilih gambar">
+                        </div> --}}
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img id="blah" class="img-fluid"
+                                    src="{{ request()->is('*/fasilitas/tambah*') ? asset('images/default/picture.svg') : asset($data['sarana']->image) }}"
+                                    alt="your image" />
+                            </div>
+                            <div class="col-md-8 d-flex">
+                                <div class="form-group col-md-12 my-auto">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="imgInp" name="image">
+                                        <label class="custom-file-label"
+                                            for="imgInp">{{ request()->is('*/fasilitas/tambah*') ? 'Foto Fasilitas' : 'Foto sampul.jpg' }}</label>
+                                        <small class="form-text text-muted">- Ukuran max 500KB</small>
+                                        <small class="form-text text-muted">- Harus berupa gambar (format: jpg, jpeg, svg,
+                                            png , dll)</small>
+                                        <small class="form-text text-muted">- Lebar foto minimal 560</small>
+                                    </div>
+                                    @error('image')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
-                            <label for="namaKategori">Nama Kategori</label>
-                            <input type="text" class="form-control @error('namaKategori')is-invalid @enderror"
-                                id="namaKategori" name="namaKategori" placeholder="Masukkan Nama Kategori">
+                            <label for="judulPoster">Judul</label>
+                            <input type="text" class="form-control @error('judulPoster')is-invalid @enderror"
+                                id="judulPoster" name="judulPoster" placeholder="Masukkan Judul Poster">
+                        </div>
+                        <div class="form-group">
+                            <label for="deskripsiPoster">Deskripsi</label>
+                            <input type="text" class="form-control @error('deskripsiPoster')is-invalid @enderror"
+                                id="deskripsiPoster" name="deskripsiPoster" placeholder="Masukkan Deskripsi Poster">
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="submit" class="btn btn-primary ml-auto">Simpan</button>
@@ -180,6 +211,25 @@
                 $('#modal-kategori form').attr('action', data.url);
                 $('#namaKategori').val(data.value)
             }
+
+            // custom input gambar
+            bsCustomFileInput.init();
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#blah').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]); // convert to base64 string
+                }
+            }
+
+            $("#imgInp").change(function() {
+                readURL(this);
+            });
 
         </script>
         @if (Session::get('icon'))
