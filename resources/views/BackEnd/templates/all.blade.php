@@ -230,8 +230,9 @@
     <script src="{{ asset('backend') }}/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('backend') }}/dist/js/demo.js"></script>
-    @yield('jsAfter')
+    @yield('jsBefore')
     @livewireScripts
+    @yield('jsAfter')
 </body>
 
 </html>

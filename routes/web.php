@@ -28,7 +28,4 @@ Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function
     Route::get('/', function () {
         return view('BackEnd.templates.all');
     })->name('index');
-    Route::get('/abc', function () {
-        return view('BackEnd.templates.all');
-    });
 });
