@@ -43,7 +43,7 @@
                                 <td>{{ $d->name }}
                                 </td>
                                 <td class="jumlah">{{ $d->items_count }}</td>
-                                <td> <a href="{{route('admin_list.item.by.category',['id_items'=>$d->id])}}"
+                                <td> <a href="{{route('admin_list.item.category',['id'=>$d->id])}}"
                                         class="btn btn-block btn-warning btn-sm">Lihat</a>
                                 </td>
                                 <td class="d-flex justify-content-around"><button type="button"

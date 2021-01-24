@@ -19,7 +19,7 @@
                             <span class="invalid-feedback"><strong>{{$message}}</strong></span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-4">
                             <label for="">Harga <span class="text-danger">*</span></label>
                             <input type="number" class="form-control @error('price') is-invalid @enderror" id=""
                                 placeholder="Harga" wire:model="price">
@@ -27,7 +27,7 @@
                             <span class="invalid-feedback"><strong>{{$message}}</strong></span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-3">
                             <label for="">Stok <span class="text-danger">*</span></label>
                             <input type="number" class="form-control @error('stock') is-invalid @enderror" id=""
                                 placeholder="Stok" wire:model="stock">
@@ -45,10 +45,33 @@
                         <span class="invalid-feedback"><strong>{{$message}}</strong></span>
                         @enderror
                     </div>
-                    <span class="text-danger">*</span>: Wajib diisi
+                    <div class="form-group">
+                        <label for="">Foto item</label>
+                        @if ($photo)
+                        <br>
+                        <small>Preview:</small>
+                        <img src="{{ $photo->temporaryUrl() }}" height="100">
+                        @endif
+                        @if ($oldPhoto)
+                        <br>
+                        <small>Preview:</small>
+                        <img src="{{ $oldPhoto }}" height="100">
+                        @endif
+
+                        <input type="file" wire:model="photo">
+                        @error('photo') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                        <div wire:loading wire:target="photo">Uploading...</div>
+                    </div>
+                    <div class="row">
+                        <span class="text-danger">*</span>: Wajib diisi
+                    </div>
                 </div>
                 <div class="modal-footer">
+                    @if ($modalCondition == "tambah")
                     <button wire:click.prevent="storeItem" class="btn btn-sm btn-success">Simpan</button>
+                    @elseif($modalCondition == "edit")
+                    <button wire:click.prevent="updateItem" class="btn btn-sm btn-success">Edit</button>
+                    @endif
                 </div>
             </div>
         </div>

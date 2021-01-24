@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\itemController;
 use App\Http\Livewire\Admin\Items\CreateAndUpdate;
 use App\Http\Livewire\Admin\Items\Index;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function () {
     Route::prefix('kategori')->group(function () {
-        Route::get('{id_items}/items', Index::class)->name('list.item.by.category');
+        Route::get('{id_items}/items/livewire', Index::class)->name('list.item.by.category');
+
+        Route::get('{id}/items', [itemController::class, 'index'])->name('list.item.category');
+        Route::get('{id}/item/delete', [itemController::class, 'delete'])->name('item.delete');
     });
 });

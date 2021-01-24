@@ -19,6 +19,7 @@ class CreateItemsTable extends Migration
             $table->integer('price');
             $table->text('description');
             $table->integer('stock');
+            // $table->string('image')->nullable();
             // $table->unsignedBigInteger('category_id');
             $table->timestamps();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');

@@ -43,7 +43,7 @@
 
         @foreach ($data['items'] as $item)
         <div class="card">
-            <img class="card-img-top" loading="lazy" src="{{asset('backend\dist\img\prod-1.jpg')}}" alt="Card image cap">
+            <img class="card-img-top" src="{{asset('storage/' . $item->image)}}" alt="Card image cap">
             <div class="card-body">
                 {{-- <div class="row"> --}}
                 <h5 class="card-title">{{$item->name}}</h5>
@@ -54,7 +54,8 @@
                 </p>
             </div>
             <div class="card-footer d-flex">
-                <button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-sm btn-info" wire:click="openModalEdit({{$item}})"><i
+                        class="fas fa-edit"></i></button>
                 <div class="ml-auto">
                     @if ($isDelete && $item->id === $delete_id)
                     @livewire('admin.items.delete')

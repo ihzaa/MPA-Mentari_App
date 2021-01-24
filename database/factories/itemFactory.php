@@ -27,7 +27,8 @@ class itemFactory extends Factory
             'price' => $this->faker->numberBetween(10000, 999999),
             'description' => $this->faker->paragraph,
             'stock' => $this->faker->numberBetween(1, 200),
-            'category_id' => category::factory()
+            'category_id' => category::factory(),
+            // 'image' => 'backend\dist\img\prod-' . rand(1, 4) . '.jpg'
         ];
     }
 }
