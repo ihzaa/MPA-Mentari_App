@@ -5,9 +5,9 @@
     <link rel="stylesheet" href="{{ asset('backend') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 @endsection
 
-@section('page_title', 'Kategori Produk')
+@section('page_title', 'Poster')
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Kategori</li>
+    <li class="breadcrumb-item active">Poster</li>
 @endsection
 
 @section('content')
@@ -40,14 +40,15 @@
                                 @foreach ($data['poster'] as $d)
                                     <tr>
                                         <td align="center">{{ $loop->iteration }}</td>
-                                        <td><img src="{{ asset($d->image) }}" alt="" width="200"></td>
+                                        <td><img src="{{ asset('storage/' . $d->image) }}" alt="" width="600"></td>
                                         <td>{{ $d->title }}</td>
                                         <td>{{ $d->description }}</td>
                                         <td class="d-flex justify-content-around"><button type="button"
                                                 class="btn btn-primary btn-sm btn-edit" data-id="{{ $d->id }}"
-                                                data-name="{{ $d->name }}"><i class="fas fa-edit">
+                                                data-name="{{ $d->title }}" data-desc="{{ $d->description }}" data-path="{{ asset('storage/' .$d->image) }}"><i
+                                                    class="fas fa-edit">
                                                 </i></button><button type="button" class="btn btn-danger btn-sm btn-hapus"
-                                                data-id="{{ $d->id }}" data-name="{{ $d->name }}"><i class="fas fa-trash">
+                                                data-id="{{ $d->id }}" data-name="{{ $d->title }}"><i class="fas fa-trash">
                                                 </i></button></td>
                                     </tr>
                                 @endforeach
@@ -82,17 +83,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="POST" id="form_poster">
+                    <form action="" method="POST" id="form_poster" enctype="multipart/form-data">
                         @csrf
-                        {{-- <div class="form-group">
-                            <label for="gambarPoster">Gambar</label>
-                            <input type="text" class="form-control @error('gambarPoster')is-invalid @enderror"
-                                id="gambarPoster" name="gambarPoster" placeholder="pilih gambar">
-                        </div> --}}
+                        {{-- @foreach ($errors->all() as $e)
+                            <li>
+                                {{ $e }}
+                            </li>
+                        @endforeach --}}
                         <div class="row">
                             <div class="col-md-4">
-                                <img id="blah" class="img-fluid"
-                                    src="{{ request()->is('*/fasilitas/tambah*') ? asset('images/default/picture.svg') : asset($data['sarana']->image) }}"
+                                <img id="blah" class="img-fluid" {{--
+                                    src="{{ request()->is('*/tambahPoster*') ? asset('backend/dist/img/picture.svg') : asset($data['poster'][0]->image) }}"
+                                    --}} src="{{ asset('backend/dist/img/picture.svg') }}"
                                     alt="your image" />
                             </div>
                             <div class="col-md-8 d-flex">
@@ -100,7 +102,7 @@
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="imgInp" name="image">
                                         <label class="custom-file-label"
-                                            for="imgInp">{{ request()->is('*/fasilitas/tambah*') ? 'Foto Fasilitas' : 'Foto sampul.jpg' }}</label>
+                                            for="imgInp">{{ request()->is('*/tambahPoster*') ? 'Foto Poster' : 'Foto poster.jpg' }}</label>
                                         <small class="form-text text-muted">- Ukuran max 500KB</small>
                                         <small class="form-text text-muted">- Harus berupa gambar (format: jpg, jpeg, svg,
                                             png , dll)</small>
@@ -117,10 +119,11 @@
                             <input type="text" class="form-control @error('judulPoster')is-invalid @enderror"
                                 id="judulPoster" name="judulPoster" placeholder="Masukkan Judul Poster">
                         </div>
+                        <br>
                         <div class="form-group">
                             <label for="deskripsiPoster">Deskripsi</label>
-                            <input type="text" class="form-control @error('deskripsiPoster')is-invalid @enderror"
-                                id="deskripsiPoster" name="deskripsiPoster" placeholder="Masukkan Deskripsi Poster">
+                            <textarea class="form-control" rows="3" id="deskripsiPoster" name="deskripsiPoster"
+                                placeholder="Masukkan Deskripsi Poster"></textarea>
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="submit" class="btn btn-primary ml-auto">Simpan</button>
@@ -142,12 +145,12 @@
         <script src="{{ asset('backend') }}/plugins/sweetalert2/sweetalert2.all.min.js"></script>
         <script>
             const url = {
-                tambah: "{{ route('admin_kategori_add') }}",
-                edit: "{{ route('admin_kategori_edit', ['id' => 'sementara']) }}",
-                hapus: "{{ route('admin_kategori_hapus', ['id' => 'sementara']) }}",
+                tambah: "{{ route('admin_poster_add') }}",
+                edit: "{{ route('admin_poster_edit', ['id' => 'sementara']) }}",
+                hapus: "{{ route('admin_poster_hapus', ['id' => 'sementara']) }}",
             };
             $(function() {
-                $('#kategori').DataTable({
+                $('#poster').DataTable({
                     "paging": true,
                     "lengthChange": false,
                     "searching": true,
@@ -158,10 +161,10 @@
                 });
             });
 
-            $('#tambahKategori').click(
+            $('#tambahPoster').click(
                 function() {
                     openModal({
-                        title: 'Tambah Kategori',
+                        title: 'Tambah Poster',
                         url: url.tambah
                     })
                 }
@@ -171,49 +174,43 @@
                 function() {
                     let temp = url.edit
                     openModal({
-                        title: 'Edit Kategori',
+                        title: 'Edit Poster',
                         url: temp.replace('sementara', $(this).data('id')),
                         value: $(this).data('name')
                     })
+                    $('#blah').attr('src', $(this).data('path'));
+                    $('#judulPoster').attr('value', $(this).data('name'));
+                    $('#deskripsiPoster').html($(this).data('desc'));
                 }
             )
 
             $('.btn-hapus').click(
                 function() {
-                    let parent = $(this).parent().parent().find(".jumlah").html();
-                    if (parent != 0) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Gagal',
-                            text: 'Kategori masih memiliki produk!'
-                        })
-                    } else {
-                        Swal.fire({
-                            title: 'Yakin mau menghapus kategori ' + $(this).data('name') + '?',
-                            icon: 'question',
-                            showCancelButton: true,
-                            confirmButtonText: `Ya`,
-                            cancelButtonText: `Tidak`,
-                        }).then((result) => {
-                            /* Read more about isConfirmed, isDenied below */
-                            if (result.isConfirmed) {
-                                let temp = url.hapus
-                                window.location.replace(temp.replace('sementara', $(this).data('id')))
-                            }
-                        })
-                    }
+                    Swal.fire({
+                        title: 'Yakin mau menghapus poster ' + $(this).data('name') + '?',
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonText: `Ya`,
+                        cancelButtonText: `Tidak`,
+                    }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            let temp = url.hapus
+                            window.location.replace(temp.replace('sementara', $(this).data('id')))
+                        }
+                    })
                 }
             )
 
             function openModal(data) {
-                $('#modal-kategori').modal('show');
+                $('#modal-poster').modal('show');
                 $('#modal-title').html(data.title);
-                $('#modal-kategori form').attr('action', data.url);
-                $('#namaKategori').val(data.value)
+                $('#modal-poster form').attr('action', data.url);
+                $('#namaPoster').val(data.value)
             }
 
             // custom input gambar
-            bsCustomFileInput.init();
+            // bsCustomFileInput.init();
 
             function readURL(input) {
                 if (input.files && input.files[0]) {
@@ -245,7 +242,7 @@
         @if ($errors->any())
             <script>
                 openModal({
-                    title: 'Tambah Kategori',
+                    title: 'Tambah Poster',
                     url: url.tambah
                 })
 
