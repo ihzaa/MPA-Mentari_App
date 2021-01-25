@@ -188,7 +188,7 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{route('admin_index')}}">Home</a></li>
                                 @yield('breadcrumb')
                             </ol>
                         </div>
@@ -205,7 +205,25 @@
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-
+        <div id="main_loading" style="
+        display:none;
+        background: #504b4b;
+        color: black;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        z-index: 5000;
+        top: 0;
+        left: 0;
+        float: left;
+        text-align: center;
+        padding-top: 25%;
+        opacity: .80;
+        ">
+            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+            <br />
+            Loading...
+        </div>
         <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
                 <b>{{ env('APP_NAME') }}</b>

@@ -22,5 +22,9 @@ Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function
 
         Route::get('{id}/items', [itemController::class, 'index'])->name('list.item.category');
         Route::get('{id}/item/delete', [itemController::class, 'delete'])->name('item.delete');
+        Route::get('{id}/item/add', [itemController::class, 'addGet'])->name('list.add.get');
+        Route::post('{id}/item/add', [itemController::class, 'addPost'])->name('list.add.post');
+        Route::get('{id}/item/edit/{id_item}', [itemController::class, 'editGet'])->name('list.edit.get');
+        Route::post('{id}/item/edit/{id_item}', [itemController::class, 'editPost'])->name('list.edit.post');
     });
 });

@@ -1,12 +1,14 @@
 $(document).ready(function () {
-    $("#lists").DataTable({
-        paging: true,
-        lengthChange: false,
-        searching: true,
-        ordering: true,
-        info: false,
-        autoWidth: true,
-        responsive: true,
+    $(function () {
+        $("#list").DataTable({
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: true,
+            responsive: true,
+        });
     });
 
     $(document).on("click", ".btn-hapus", function () {
@@ -24,7 +26,7 @@ $(document).ready(function () {
                 fetch(tempUrl.replace("wadadidaw", id))
                     .then((resp) => resp.json())
                     .then((data) => {
-                        console.log(data);
+                        location.reload();
                     })
                     .catch((err) => console.log(err));
             }
