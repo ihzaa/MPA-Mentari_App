@@ -20,7 +20,7 @@ class posterController extends Controller
     public function addPoster(Request $request)
     {
         $this->validate($request, [
-            'image' => [ 'image', 'max:500'],
+            'image' => [ 'required', 'image', 'max:500'],
             'judulPoster' => 'required',
             'deskripsiPoster' => 'required'
         ]);
