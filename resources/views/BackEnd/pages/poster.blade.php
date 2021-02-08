@@ -14,7 +14,6 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-
                 <div class="card">
                     <div class="card-header d-flex">
                         <h3 class="card-title my-auto">List Poster</h3>
@@ -45,8 +44,8 @@
                                         <td>{{ $d->description }}</td>
                                         <td class="d-flex justify-content-around"><button type="button"
                                                 class="btn btn-primary btn-sm btn-edit" data-id="{{ $d->id }}"
-                                                data-name="{{ $d->title }}" data-desc="{{ $d->description }}" data-path="{{ asset('storage/' .$d->image) }}"><i
-                                                    class="fas fa-edit">
+                                                data-name="{{ $d->title }}" data-desc="{{ $d->description }}"
+                                                data-path="{{ asset('storage/' . $d->image) }}"><i class="fas fa-edit">
                                                 </i></button><button type="button" class="btn btn-danger btn-sm btn-hapus"
                                                 data-id="{{ $d->id }}" data-name="{{ $d->title }}"><i class="fas fa-trash">
                                                 </i></button></td>
@@ -74,7 +73,7 @@
     </div>
 
     <div class="modal fade" id="modal-poster">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="modal-title"></h4>
@@ -91,22 +90,21 @@
                             </li>
                         @endforeach --}}
                         <div class="row">
-                            <div class="col-md-4">
-                                <img id="blah" class="img-fluid" {{--
-                                    src="{{ request()->is('*/tambahPoster*') ? asset('backend/dist/img/picture.svg') : asset($data['poster'][0]->image) }}"
-                                    --}} src="{{ asset('backend/dist/img/picture.svg') }}"
+                            <div class="col-md-5">
+                                <img id="blah" class="img-fluid" src="{{ asset('backend/dist/img/picture.svg') }}"
                                     alt="your image" />
                             </div>
-                            <div class="col-md-8 d-flex">
+                            <div class="col-md-7 d-flex">
                                 <div class="form-group col-md-12 my-auto">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="imgInp" name="image">
-                                        <label class="custom-file-label"
-                                            for="imgInp">{{ request()->is('*/tambahPoster*') ? 'Foto Poster' : 'Foto poster.jpg' }}</label>
-                                        <small class="form-text text-muted">- Ukuran max 500KB</small>
-                                        <small class="form-text text-muted">- Harus berupa gambar (format: jpg, jpeg, svg,
-                                            png , dll)</small>
-                                        <small class="form-text text-muted">- Lebar foto minimal 560</small>
+                                        <label id="labelFoto" class="custom-file-label" for="imgInp">Pilih foto</label>
+                                        <p class="form-text text-muted">- Ukuran max 1024KB</p>
+                                        <p class="form-text text-muted">- Harus berupa gambar
+                                            (format: jpg, jpeg, svg,
+                                            png , dll)</p>
+                                        <p class="form-text text-muted">- Agar tampilan baik, <strong>gunakan foto dengan
+                                                perbandingan 5:3</strong></p>
                                     </div>
                                     @error('image')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -115,14 +113,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="judulPoster">Judul</label>
+                            <label for="judulPoster">Judul <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('judulPoster')is-invalid @enderror"
                                 id="judulPoster" name="judulPoster" placeholder="Masukkan Judul Poster">
                         </div>
                         <br>
                         <div class="form-group">
-                            <label for="deskripsiPoster">Deskripsi</label>
-                            <textarea class="form-control" rows="3" id="deskripsiPoster" name="deskripsiPoster"
+                            <label for="deskripsiPoster">Deskripsi <span class="text-danger">*</span></label>
+                            <textarea class="form-control @error('deskripsiPoster')is-invalid @enderror" rows="3"
+                                id="deskripsiPoster" name="deskripsiPoster"
                                 placeholder="Masukkan Deskripsi Poster"></textarea>
                         </div>
                         <div class="modal-footer justify-content-between">
@@ -167,17 +166,23 @@
                         title: 'Tambah Poster',
                         url: url.tambah
                     })
+                    $('#labelFoto').html('Pilih Foto')
+                    $('#blah').attr('src', "{{ asset('backend/dist/img/picture.svg ') }}");
+                    $('#judulPoster').attr('value', '');
+                    $('#deskripsiPoster').val('');
                 }
             )
 
             $('.btn-edit').click(
                 function() {
                     let temp = url.edit
+                    let filename = $(this).data('path').replace(/^.*[\\\/]/, '')
                     openModal({
                         title: 'Edit Poster',
                         url: temp.replace('sementara', $(this).data('id')),
                         value: $(this).data('name')
                     })
+                    $('#labelFoto').html(filename)
                     $('#blah').attr('src', $(this).data('path'));
                     $('#judulPoster').attr('value', $(this).data('name'));
                     $('#deskripsiPoster').html($(this).data('desc'));
@@ -213,6 +218,7 @@
             // bsCustomFileInput.init();
 
             function readURL(input) {
+                // let label =
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
 
@@ -221,6 +227,7 @@
                     }
 
                     reader.readAsDataURL(input.files[0]); // convert to base64 string
+                    $('#labelFoto').html($("#imgInp")[0].files[0].name);
                 }
             }
 
