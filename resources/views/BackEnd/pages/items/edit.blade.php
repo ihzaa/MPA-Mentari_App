@@ -77,8 +77,8 @@
                                     <br>
                                     <ul>
                                         <li><small>Dapat lebih dari 1</small></li>
-                                        <li><small>Jika lebih dari satu gambar, <strong>pilih langsung
-                                                    bersamaan</strong></small></li>
+                                        <li><small>Jika lebih dari satu gambar, <strong>pilih langsung bersamaan dengan
+                                                    cara menekan CTRL dan klik FOTO</strong></small></li>
                                         <li><small>Harus berformat gambar (jpg, png, jpeg, dll)</small></li>
                                     </ul>
                                     <label class="custom-file-container__custom-file">
@@ -96,11 +96,14 @@
                             </div>
                         </div>
                         <div class="row">
-                            <select class="form-control select2bs4" style="width: 100%;" name="category">
-                                @foreach ($data['category'] as $d)
-                                <option value="{{$d->id}}" @if($d->id == $data['category_id']) selected="selected"
-                                    @endif>{{$d->name}}</option>
-                                @endforeach
+                            <div class="col-md-12">
+                                <label>Kategori <span class="text-danger">*</span></label>
+                                <select class="form-control select2bs4" style="width: 100%;" name="category">
+                                    @foreach ($data['category'] as $d)
+                                    <option value="{{$d->id}}" @if($d->id == $data['category_id']) selected="selected"
+                                        @endif>{{$d->name}}</option>
+                                    @endforeach
+                            </div>
                             </select>
                         </div>
                 </div>

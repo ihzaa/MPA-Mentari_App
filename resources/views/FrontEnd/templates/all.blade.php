@@ -38,7 +38,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/main.css') }}">
     <!--===============================================================================================-->
+    @yield('cssBefore')
+    {{-- @livewireStyles --}}
     @yield('cssAfter')
+
 </head>
 
 <body class="animsition">
@@ -1003,7 +1006,8 @@
     </script>
     <!--===============================================================================================-->
     <script src="{{ asset('frontend/js/main.js') }}"></script>
-
+    @yield('jsBefore')
+    {{-- @livewireScripts --}}
     @yield('jsAfter')
 </body>
 

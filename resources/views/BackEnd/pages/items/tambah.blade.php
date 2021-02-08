@@ -70,7 +70,7 @@
                                             title="Clear Image">&times;</a></label>
                                     <ul>
                                         <li><small>Dapat lebih dari 1 gambar</small></li>
-                                        <li><small>Jika lebih dari satu gambar, <strong>pilih langsung bersamaan</strong></small></li>
+                                        <li><small>Jika lebih dari satu gambar, <strong>pilih langsung bersamaan dengan cara menekan CTRL dan klik FOTO</strong></small></li>
                                         <li><small>Harus berformat gambar (jpg, png, jpeg, dll)</small></li>
                                     </ul>
                                     <label class="custom-file-container__custom-file">
