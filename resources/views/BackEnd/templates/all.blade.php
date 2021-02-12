@@ -14,7 +14,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('backend') }}/dist/css/adminlte.min.css">
     @yield('cssAfter')
-    @livewireStyles
+    {{-- @livewireStyles --}}
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -168,7 +168,7 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('backend') }}/dist/js/demo.js"></script>
     @yield('jsBefore')
-    @livewireScripts
+    {{-- @livewireScripts --}}
     @yield('jsAfter')
 </body>
 
