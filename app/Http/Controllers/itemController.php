@@ -59,7 +59,7 @@ class itemController extends Controller
 
         $item = item::create([
             'name' => $request->name,
-            'price' => $request->price,
+            'price' => str_replace('.', '', $request->price),
             'description' => $request->description,
             'stock' => $request->stock,
             'category_id' => $id
@@ -119,7 +119,7 @@ class itemController extends Controller
         item_image::where('item_id', $id_item)->whereNotIn('name', $imagesName)->delete();
         item::find($id_item)->update([
             'name' => $request->name,
-            'price' => $request->price,
+            'price' => str_replace('.', '', $request->price),
             'description' => $request->description,
             'stock' => $request->stock,
             'category_id' => $request->category
