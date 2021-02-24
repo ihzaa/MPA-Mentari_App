@@ -15,7 +15,6 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('address')->nullabel();
             $table->json('cart_id');
             // $table->unsignedBigInteger('address_id')->nullabel();
             $table->timestamps();
