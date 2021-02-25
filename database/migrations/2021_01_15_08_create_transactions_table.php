@@ -19,6 +19,7 @@ class CreateTransactionsTable extends Migration
             // $table->unsignedBigInteger('address_id')->nullabel();
             $table->timestamps();
             $table->foreignId('address_id')->nullable()->constrained()->onDelete('no action');
+            $table->foreignId('user_id')->onDelete('cascade');
         });
     }
 
