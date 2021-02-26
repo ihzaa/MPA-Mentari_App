@@ -17,9 +17,10 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->json('cart_id');
             // $table->unsignedBigInteger('address_id')->nullabel();
-            $table->timestamps();
+            $table->enum('status', ['0', '1']);
             $table->foreignId('address_id')->nullable()->constrained()->onDelete('no action');
             $table->foreignId('user_id')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

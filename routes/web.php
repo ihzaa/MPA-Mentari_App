@@ -25,7 +25,11 @@ Route::post('4dm1n/login', [AdminLogin::class, 'postLogin'])->name('admin_login_
 Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function () {
     Route::get('logout', [AdminLogin::class, 'logout'])->name('logout');
 
-    Route::get('/', function () {
-        return view('BackEnd.templates.all');
-    })->name('index');
+    // Route::get('/', function () {
+    //     return view('BackEnd.templates.all');
+    // })->name('index');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

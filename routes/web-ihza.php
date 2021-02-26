@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\itemController;
 use App\Http\Livewire\Admin\Items\CreateAndUpdate;
 use App\Http\Livewire\Admin\Items\Index;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::prefix('kategori')->group(function () {
         Route::get('{id_items}/items/livewire', Index::class)->name('list.item.by.category');
 
