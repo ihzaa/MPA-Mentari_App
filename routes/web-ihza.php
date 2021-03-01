@@ -29,4 +29,5 @@ Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function
         Route::get('{id}/item/edit/{id_item}', [itemController::class, 'editGet'])->name('list.edit.get');
         Route::post('{id}/item/edit/{id_item}', [itemController::class, 'editPost'])->name('list.edit.post');
     });
+    Route::get('refresh/transaction', [DashboardController::class, 'getUnprocessedTransaction'])->name('getUnprocessedTransaction');
 });

@@ -23,8 +23,9 @@
                 ld ld-heartbeat
             @endif">
                 <div class="inner">
-                    <h3 id="newTransactionCount" class="d-flex">{{$data['newTransaction']}} <ion-icon
-                            name="refresh-outline" size="small" class="ml-auto" style="cursor: pointer"></ion-icon>
+                    <h3 class="d-flex"><span id="newTransactionCount">{{$data['newTransaction']}}</span>
+                        <ion-icon id="refresh_new_transaction" name="refresh-outline" size="small" class="ml-auto"
+                            style="cursor: pointer"></ion-icon>
                     </h3>
                     <p>Pesanan Baru</p>
 
@@ -35,7 +36,8 @@
                 <div class="overlay dark" id="loading_new_transaction" style="display: none;">
                     <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                 </div>
-                <a href="#" class="small-box-footer">Lihat <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('admin_transaksi_get')}}" class="small-box-footer">Lihat <i
+                        class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-6">
@@ -49,7 +51,8 @@
                 <div class="icon">
                     <i class="fas fa-cart-plus"></i>
                 </div>
-                <a href="#" class="small-box-footer">Lihat <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('admin_transaksi_get')}}" class="small-box-footer">Lihat <i
+                        class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-6">
@@ -87,5 +90,21 @@
 
 
 @section('jsAfter')
+<script>
+    const CONST_URL = {
+        refresh : "{{route('admin_getUnprocessedTransaction')}}"
+    }
 
+    $(document).on("click","#refresh_new_transaction",function(){
+        $('#loading_new_transaction').show();
+        fetch(CONST_URL.refresh).then((result) => result.json())
+        .then((data)=>{
+            $("#newTransactionCount").html(data)
+        }).then(()=>{
+            $('#loading_new_transaction').hide();
+        }).catch((err) => {
+            console.log(err);
+        });
+    })
+</script>
 @endsection
