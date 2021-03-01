@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\backend\kategoriController;
 use App\Http\Controllers\backend\posterController;
+use App\Http\Controllers\backend\transaksiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,4 +33,9 @@ Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function
     Route::post('/tambahPoster', [posterController::class, 'addPoster'])->name('poster_add');
     Route::post('/editPoster/{id}', [posterController::class, 'editPoster'])->name('poster_edit');
     Route::get('/hapusPoster/{id}', [posterController::class, 'hapusPoster'])->name('poster_hapus');
+    Route::get('/transaksi', [transaksiController::class, 'getUserTransaction'])->name('transaksi_get');
+    Route::get('/transaksi/{id}', [transaksiController::class, 'getDetailTransaction'])->name('detail_get');
+    Route::get('/transaksiDetail/{id}', [transaksiController::class, 'showDetailTransaction'])->name('transaksi_detail');
+    Route::get('/kirim/{id}', [transaksiController::class, 'kirim'])->name('kirim');
+    Route::get('/batalkirim/{id}', [transaksiController::class, 'batalKirim'])->name('batal_kirim');
 });

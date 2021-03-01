@@ -30,6 +30,5 @@ Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function
     // })->name('index');
 });
 
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

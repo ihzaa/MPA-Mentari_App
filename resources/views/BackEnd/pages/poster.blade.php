@@ -3,6 +3,13 @@
     <link rel="stylesheet" href="{{ asset('backend') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('backend') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('backend') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+    <style>
+        .aksi {
+            display: inline;
+        }
+
+    </style>
 @endsection
 
 @section('page_title', 'Poster')
@@ -16,7 +23,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header d-flex">
-                        <h3 class="card-title my-auto">List Poster</h3>
+                        <h3 class="card-title my-auto">Daftar Poster</h3>
                         <button type="button" class="btn btn-success btn-sm ml-auto" id="tambahPoster"><small><i
                                     class="fas fa-plus">
                                 </i></small>
@@ -39,16 +46,23 @@
                                 @foreach ($data['poster'] as $d)
                                     <tr>
                                         <td align="center">{{ $loop->iteration }}</td>
-                                        <td><img src="{{ asset('storage/' . $d->image) }}" alt="" width="600"></td>
+                                        <td><img src="{{ asset('storage/' . $d->image) }}" alt="" class="img-fluid"></td>
                                         <td>{{ $d->title }}</td>
                                         <td>{{ $d->description }}</td>
-                                        <td class="d-flex justify-content-around"><button type="button"
-                                                class="btn btn-primary btn-sm btn-edit" data-id="{{ $d->id }}"
-                                                data-name="{{ $d->title }}" data-desc="{{ $d->description }}"
-                                                data-path="{{ asset('storage/' . $d->image) }}"><i class="fas fa-edit">
-                                                </i></button><button type="button" class="btn btn-danger btn-sm btn-hapus"
-                                                data-id="{{ $d->id }}" data-name="{{ $d->title }}"><i class="fas fa-trash">
-                                                </i></button></td>
+                                        <td class="aksi">
+                                            <button type="button" class="btn btn-primary btn-sm btn-edit my-3"
+                                                data-id="{{ $d->id }}" data-name="{{ $d->title }}"
+                                                data-desc="{{ $d->description }}"
+                                                data-path="{{ asset('storage/' . $d->image) }}"><i
+                                                    class="fas fa-edit fa-xs">
+                                                </i>
+                                            </button>
+                                            <button type="button" class="btn ml-1 btn-danger btn-sm btn-hapus"
+                                                data-id="{{ $d->id }}" data-name="{{ $d->title }}"><i
+                                                    class="fas fa-trash fa-xs">
+                                                </i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -155,7 +169,7 @@
                     "searching": true,
                     "ordering": true,
                     "info": false,
-                    "autoWidth": true,
+                    "autoWidth": false,
                     "responsive": true,
                 });
             });
@@ -173,7 +187,7 @@
                 }
             )
 
-            $('.btn-edit').click(
+            $(document).on('click', '.btn-edit',
                 function() {
                     let temp = url.edit
                     let filename = $(this).data('path').replace(/^.*[\\\/]/, '')
@@ -189,7 +203,7 @@
                 }
             )
 
-            $('.btn-hapus').click(
+            $(document).on('click', '.btn-hapus',
                 function() {
                     Swal.fire({
                         title: 'Yakin mau menghapus poster ' + $(this).data('name') + '?',
