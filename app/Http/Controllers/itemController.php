@@ -18,8 +18,7 @@ class itemController extends Controller
         $data['category_id'] = $id;
         // $data['items'] = item::latest()->where('category_id', $id)->get();
         // $data['items'] = DB::select(DB::raw('SELECT items.*, item_images.path FROM items LEFT JOIN item_images ON items.id=item_images.item_id WHERE items.category_id=' . $id.' GROUP BY items.id'));
-        $data['items'] = DB::select(DB::raw('SELECT items.*, (SELECT item_images.path FROM item_images WHERE item_images.item_id = items.id LIMIT 1) as path FROM items WHERE items.category_id=' . $id . ' ORDER BY id DESC'));
-
+        $data['items'] = DB::select(DB::raw('SELECT items.*, (SELECT item_images.path FROM item_images WHERE item_images.item_id = items.id LIMIT 1) as path FROM items WHERE items.category_id=' . $id . ' AND items.deleted_at IS NULL ORDER BY id DESC'));
         return view('BackEnd.pages.items.index', compact("data"));
     }
 
