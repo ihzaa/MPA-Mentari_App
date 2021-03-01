@@ -97,7 +97,11 @@
 
     $(document).on("click","#refresh_new_transaction",function(){
         $('#loading_new_transaction').show();
-        fetch(CONST_URL.refresh).then((result) => result.json())
+        fetch(CONST_URL.refresh,{
+  headers: {
+    'Cache-Control': 'no-cache'
+  }
+}).then((result) => result.json())
         .then((data)=>{
             $("#newTransactionCount").html(data)
         }).then(()=>{
