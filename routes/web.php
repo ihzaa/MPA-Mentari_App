@@ -34,7 +34,7 @@ Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/clear-cache', function() {
-    \Illuminate\Support\Facades\Artisan::call('optimize');
+    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
     // return what you want
     echo 'ok';
 });

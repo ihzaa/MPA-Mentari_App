@@ -21,7 +21,7 @@
             <!-- small box -->
             <div class="small-box bg-danger @if ($data['newTransaction'] > 0)
                 ld ld-heartbeat
-            @endif">
+            @endif" id="box_new_transaction">
                 <div class="inner">
                     <h3 class="d-flex"><span id="newTransactionCount">{{$data['newTransaction']}}</span>
                         <ion-icon id="refresh_new_transaction" name="refresh-outline" size="small" class="ml-auto"
@@ -104,6 +104,11 @@
 }).then((result) => result.json())
         .then((data)=>{
             $("#newTransactionCount").html(data)
+            if(data != 0){
+                $("#box_new_transaction").addClass('ld ld-heartbeat');
+            }else{
+                $("#box_new_transaction").removeClass('ld ld-heartbeat');
+            }
         }).then(()=>{
             $('#loading_new_transaction').hide();
         }).catch((err) => {
