@@ -16,6 +16,7 @@ class CreateAddressesTable extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->text('address');
+            $table->softDeletes();
             // $table->unsignedBigInteger('customer_id');
             $table->timestamps();
             // $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');

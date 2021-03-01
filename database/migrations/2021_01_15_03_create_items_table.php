@@ -21,6 +21,7 @@ class CreateItemsTable extends Migration
             $table->integer('stock');
             // $table->string('image')->nullable();
             // $table->unsignedBigInteger('category_id');
+            $table->softDeletes();
             $table->timestamps();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
         });
