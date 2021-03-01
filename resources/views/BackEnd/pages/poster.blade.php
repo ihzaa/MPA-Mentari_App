@@ -113,7 +113,8 @@
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="imgInp" name="image">
                                         <label id="labelFoto" class="custom-file-label" for="imgInp">Pilih foto</label>
-                                        <p class="form-text text-muted">- Ukuran max 1024KB</p>
+                                        <p class="form-text text-muted">- Ukuran max 500KB</p>
+                                        <p class="form-text text-muted">- Dimensi minimal 150x600 pixel</p>
                                         <p class="form-text text-muted">- Harus berupa gambar
                                             (format: jpg, jpeg, svg,
                                             png , dll)</p>

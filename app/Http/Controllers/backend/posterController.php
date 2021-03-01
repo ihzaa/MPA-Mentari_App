@@ -20,7 +20,7 @@ class posterController extends Controller
     public function addPoster(Request $request)
     {
         $this->validate($request, [
-            'image' => [ 'required', 'image', 'max:500'],
+            'image' => [ 'required', 'image', 'max:500', 'dimensions:min_width=600,min_height=150'],
             'judulPoster' => 'required',
             'deskripsiPoster' => 'required'
         ]);
@@ -45,7 +45,7 @@ class posterController extends Controller
     public function editPoster($id, Request $request)
     {
         $this->validate($request, [
-            'image' => [ 'image', 'max:500'],
+            'image' => [ 'image', 'max:500', 'dimensions:min_width=600,min_height=150'],
             'judulPoster' => 'required',
             'deskripsiPoster' => 'required'
         ]);
