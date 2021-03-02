@@ -184,7 +184,6 @@
                     fetch(tmpUrl).then(
                         (resp) => resp.json()
                     ).then((data) => {
-                        console.log(data.data.transaksi);
                         document.getElementById("bodyTableDetail").innerHTML = '';
                         document.getElementById("customerName").innerHTML = data.data.transaksi[0].name;
                         document.getElementById("customerAddress").innerHTML = data.data.transaksi[0].address;
@@ -196,9 +195,8 @@
                             document.getElementById("bodyTableDetail").innerHTML +=
                                 '<tr> <td>' + i + '</td><td> ' + element.name +
                                 '</td> <td> ' + element.quantity + '</td> <td>' + formatPrice(element
-                                    .price) + '</td> </tr>';
+                                    .price * element.quantity) + '</td> </tr>';
                             i++;
-                            total += element.price;
                         });
                         document.getElementById('total').innerHTML = formatPrice(total);
                         if (data.data.transaksi[0].status == 0) {

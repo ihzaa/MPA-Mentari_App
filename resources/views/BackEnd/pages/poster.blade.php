@@ -128,13 +128,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="judulPoster">Judul <span class="text-danger">*</span></label>
+                            <label for="judulPoster">Judul</label>
                             <input type="text" class="form-control @error('judulPoster')is-invalid @enderror"
                                 id="judulPoster" name="judulPoster" placeholder="Masukkan Judul Poster">
                         </div>
                         <br>
                         <div class="form-group">
-                            <label for="deskripsiPoster">Deskripsi <span class="text-danger">*</span></label>
+                            <label for="deskripsiPoster">Deskripsi</label>
                             <textarea class="form-control @error('deskripsiPoster')is-invalid @enderror" rows="3"
                                 id="deskripsiPoster" name="deskripsiPoster"
                                 placeholder="Masukkan Deskripsi Poster"></textarea>

@@ -4,9 +4,6 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\transaction;
-use Illuminate\Http\Request;
-use Illuminate\Http\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 class transaksiController extends Controller
@@ -15,7 +12,7 @@ class transaksiController extends Controller
     {
         $data = array();
         $data['transaksi'] = transaction::all();
-        return view('BackEnd.pages.transaksi',compact('data'));
+        return view('BackEnd.pages.transaksi', compact('data'));
     }
 
     public function getUserTransaction()
@@ -37,17 +34,24 @@ class transaksiController extends Controller
         // $transaksi = transaction::find($id);
         // $user = user::where('id', $transaksi)
         $data = array();
-        $data['transaksi'] = DB::select('SELECT t.*, u.name, u.phone, a.address FROM transactions as t JOIN users as u ON t.user_id = u.id JOIN addresses as a ON t.address_id = a.id where t.id = '.$id);
-        $cart_id = json_decode($data['transaksi'][0]->cart_id,true);
-        $cart_id = str_replace('[','',$cart_id);
-        $cart_id = str_replace(']','',$cart_id);
+        $data['transaksi'] = DB::select('SELECT t.*, u.name, u.phone, a.address FROM transactions as t JOIN users as u ON t.user_id = u.id JOIN addresses as a ON t.address_id = a.id where t.id = ' . $id);
+        $cart_id = json_decode($data['transaksi'][0]->cart_id, true);
+        $cart_id = str_replace('[', '', $cart_id);
+        $cart_id = str_replace(']', '', $cart_id);
 
         $cart_id = str_split($cart_id);
+        // $cart_id = implode(',', array_map('intval', $cart_id));
+        // dd($cart_id);
         // return gettype($cart_id);
-        $data['cart'] = DB::select('SELECT DISTINCT c.quantity, i.name, i.price FROM carts as c JOIN items as i WHERE i.id IN ('.implode(',', array_map('intval', $cart_id)).')');
+
+        // $history = transaction::where('id', $id)->orderBy('created_at', 'desc')->get(['cart_id', 'created_at']);
+        // $cart = cart::where('user_id', Auth::user()->id)->where('status', "1")->get(["id", 'item_id', 'quantity'])->keyBy('id');
+        // $item = item::withTrashed()->pluck('name', 'id');
+
+        $data['cart'] = DB::select('SELECT DISTINCT c.quantity,  i.name, i.price FROM carts as c JOIN items as i ON i.id = c.item_id WHERE c.id IN (' . implode(',', array_map('intval', $cart_id)) . ')');
 
         return response()->json([
-            "data"=>$data
+            "data" => $data,
         ]);
     }
 

@@ -4,30 +4,28 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\poster;
-use Illuminate\Http\Request;
 use Illuminate\Http\File;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class posterController extends Controller
 {
-     public function getPoster()
+    public function getPoster()
     {
         $data = array();
         $data['poster'] = poster::all();
-        return view('BackEnd.pages.poster',compact('data'));
+        return view('BackEnd.pages.poster', compact('data'));
     }
 
     public function addPoster(Request $request)
     {
         $this->validate($request, [
-            'image' => [ 'required', 'image', 'max:500', 'dimensions:min_width=600,min_height=150'],
-            'judulPoster' => 'required',
-            'deskripsiPoster' => 'required'
+            'image' => ['required', 'image', 'max:500', 'dimensions:min_width=600,min_height=150'],
         ]);
 
         $poster = poster::create([
             'title' => $request->judulPoster,
-            'description' => $request->deskripsiPoster
+            'description' => $request->deskripsiPoster,
         ]);
 
         if ($request->file('image') != "") {
@@ -45,9 +43,7 @@ class posterController extends Controller
     public function editPoster($id, Request $request)
     {
         $this->validate($request, [
-            'image' => [ 'image', 'max:500', 'dimensions:min_width=600,min_height=150'],
-            'judulPoster' => 'required',
-            'deskripsiPoster' => 'required'
+            'image' => ['image', 'max:500', 'dimensions:min_width=600,min_height=150'],
         ]);
 
         $poster = poster::find($id);
@@ -56,7 +52,7 @@ class posterController extends Controller
         $poster->description = $request->deskripsiPoster;
 
         if ($request->file('image') != "") {
-            Storage::delete('public/'.$poster->image);
+            Storage::delete('public/' . $poster->image);
             $extension = $request->file('image')->getClientOriginalExtension();
             $nameUpload = 'Image-' . $poster->id . '.' . $extension;
             $request->file('image')->storeAs('public/images/poster', $nameUpload);
@@ -70,7 +66,7 @@ class posterController extends Controller
     public function hapusPoster($id)
     {
         $path = poster::find($id);
-        Storage::delete('public/'.$path->image);
+        Storage::delete('public/' . $path->image);
         poster::find($id)->delete();
 
         return redirect(route('admin_poster_get'))->with('icon', 'success')->with('title', 'Berhasil')->with('text', 'Berhasil menghapus poster!');
