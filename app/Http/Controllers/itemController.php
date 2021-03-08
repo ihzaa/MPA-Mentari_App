@@ -53,31 +53,41 @@ class itemController extends Controller
             'price' => 'required',
             'description' => 'required',
             'stock' => 'required',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120'
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120',
         ]);
+        if ($request->promo == null) {
+            $item = item::create([
+                'name' => $request->name,
+                'price' => str_replace('.', '', $request->price),
+                'description' => $request->description,
+                'stock' => $request->stock,
+                'category_id' => $id,
+            ]);
+        } else {
+            $item = item::create([
+                'name' => $request->name,
+                'price' => str_replace('.', '', $request->price),
+                'promo' => str_replace('.', '', $request->promo),
+                'description' => $request->description,
+                'stock' => $request->stock,
+                'category_id' => $id,
+            ]);
 
-        $item = item::create([
-            'name' => $request->name,
-            'price' => str_replace('.', '', $request->price),
-            'description' => $request->description,
-            'stock' => $request->stock,
-            'category_id' => $id
-        ]);
-
+        }
         if ($request->hasFile('images')) {
             // dd($request->file('images')[0]);
             foreach ($request->file('images') as $file) {
-                $photoName =  $item->id . '-' . rand() . substr(md5(time()), 0, 5) . '.' . $file->getClientOriginalExtension();
+                $photoName = $item->id . '-' . rand() . substr(md5(time()), 0, 5) . '.' . $file->getClientOriginalExtension();
                 $file->storeAs('public/items/images', $photoName);
                 item_image::create([
                     'name' => $photoName,
                     'path' => 'items/images/' . $photoName,
-                    'item_id' => $item->id
+                    'item_id' => $item->id,
                 ]);
             }
         }
 
-        return redirect(route('admin_list.item.category', ['id' => $id]))->with('icon', 'success')->with('title', 'Berhasil')->with('message', 'Berhasil menambahkan item.');
+        return redirect(route('admin_list.item.category', ['id' => $id]))->with('icon', 'success')->with('title', 'Berhasil')->with('message', 'Berhasil menambahkan produk.');
     }
 
     public function editGet($id, $id_item)
@@ -102,7 +112,7 @@ class itemController extends Controller
             'price' => 'required',
             'description' => 'required',
             'stock' => 'required',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120'
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120',
         ]);
         $images = json_decode($request->imagesList);
         $imagesName = [];
@@ -116,27 +126,39 @@ class itemController extends Controller
             Storage::delete('public/' . $image->path);
         }
         item_image::where('item_id', $id_item)->whereNotIn('name', $imagesName)->delete();
-        item::find($id_item)->update([
-            'name' => $request->name,
-            'price' => str_replace('.', '', $request->price),
-            'description' => $request->description,
-            'stock' => $request->stock,
-            'category_id' => $request->category
-        ]);
+        if ($request->promo == null) {
+            item::find($id_item)->update([
+                'name' => $request->name,
+                'price' => str_replace('.', '', $request->price),
+                'promo' => null,
+                'description' => $request->description,
+                'stock' => $request->stock,
+                'category_id' => $request->category,
+            ]);
+        } else {
+            item::find($id_item)->update([
+                'name' => $request->name,
+                'price' => str_replace('.', '', $request->price),
+                'promo' => str_replace('.', '', $request->promo),
+                'description' => $request->description,
+                'stock' => $request->stock,
+                'category_id' => $request->category,
+            ]);
+        }
 
         if ($request->hasFile('images')) {
             // dd($request->file('images'));
             foreach ($request->file('images') as $file) {
-                $photoName =  $id_item . '-' . rand() . substr(md5(time()), 0, 5) . '.' . $file->getClientOriginalExtension();
+                $photoName = $id_item . '-' . rand() . substr(md5(time()), 0, 5) . '.' . $file->getClientOriginalExtension();
                 $file->storeAs('public/items/images', $photoName);
                 item_image::create([
                     'name' => $photoName,
                     'path' => 'items/images/' . $photoName,
-                    'item_id' => $id_item
+                    'item_id' => $id_item,
                 ]);
             }
         }
 
-        return redirect(route('admin_list.item.category', ['id' => $id]))->with('icon', 'success')->with('title', 'Berhasil')->with('message', 'Berhasil mengedit item.');
+        return redirect(route('admin_list.item.category', ['id' => $id]))->with('icon', 'success')->with('title', 'Berhasil')->with('message', 'Berhasil mengedit produk.');
     }
 }

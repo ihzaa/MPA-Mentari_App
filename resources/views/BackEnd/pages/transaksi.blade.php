@@ -34,7 +34,7 @@
                                 @foreach ($data['userTransaction'] as $d)
                                     <tr>
                                         <td align="center">{{ $loop->iteration }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($d->created_at)->format('d M Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($d->created_at)->format('d M Y, H:i') }}</td>
                                         <td>{{ $d->name }}</td>
                                         @if ($d->status == 0)
                                             <td style="background-color: red; color:white">

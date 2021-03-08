@@ -19,7 +19,7 @@ class CreateItemsTable extends Migration
             $table->integer('price');
             $table->text('description');
             $table->integer('stock');
-            // $table->string('image')->nullable();
+            $table->integer('promo')->nullable();
             // $table->unsignedBigInteger('category_id');
             $table->softDeletes();
             $table->timestamps();
