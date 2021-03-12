@@ -110,10 +110,10 @@
                     <table id="tableDetail" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th style="width:3%">No</th>
-                                <th style="width:52%">Nama Barang</th>
-                                <th style="width:10%">Kuantitas</th>
-                                <th style="width:45%">Harga (Rp)</th>
+                                <th style="width:46%;vertical-align: middle">NAMA BARANG</th>
+                                <th style="width:3%;vertical-align: middle">QTY</th>
+                                <th style="width:30%;vertical-align: middle">HARGA SATUAN</th>
+                                <th style="width:31%;vertical-align: middle">JUMLAH</th>
                             </tr>
                         </thead>
                         <tbody id="bodyTableDetail">
@@ -121,7 +121,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="3"><strong>Total</strong></td>
+                                <td colspan="3"><strong>TOTAL</strong></td>
                                 <th id="total"></th>
                             </tr>
                         </tfoot>
@@ -176,8 +176,7 @@
 
             $(document).on('click', '.btn-detail',
                 function() {
-                    let tmpUrl = url.show
-                    let i = 1;
+                    let tmpUrl = url.show;
                     let total = 0;
                     tmpUrl = tmpUrl.replace('sementara', $(this).data("id"))
                     $('#main_loading').show();
@@ -192,11 +191,23 @@
                                 .created_at)
                             .format('LL');
                         data.data.cart.forEach(element => {
-                            document.getElementById("bodyTableDetail").innerHTML +=
-                                '<tr> <td>' + i + '</td><td> ' + element.name +
-                                '</td> <td> ' + element.quantity + '</td> <td>' + formatPrice(element
-                                    .price * element.quantity) + '</td> </tr>';
-                            i++;
+                            if (element.promo == null) {
+                                document.getElementById("bodyTableDetail").innerHTML +=
+                                    '<td style="vertical-align: middle">' + element.name +
+                                    '</td> <td style="vertical-align: middle"> ' + element.quantity +
+                                    '</td> <td style="vertical-align: middle">' + formatPrice(element
+                                        .price) + '</td><td style="vertical-align: middle"> ' +
+                                    formatPrice(element.price * element.quantity) + '</td> </tr>';
+                                total += element.price * element.quantity;
+                            } else {
+                                document.getElementById("bodyTableDetail").innerHTML +=
+                                    '<td style="vertical-align: middle">' + element.name +
+                                    '</td> <td style="vertical-align: middle"> ' + element.quantity +
+                                    '</td> <td style="vertical-align: middle">' + formatPrice(element
+                                        .promo) + '</td> <td style="vertical-align: middle">' +
+                                    formatPrice(element.promo * element.quantity) + '</td> </tr>';
+                                total += element.promo * element.quantity
+                            }
                         });
                         document.getElementById('total').innerHTML = formatPrice(total);
                         if (data.data.transaksi[0].status == 0) {

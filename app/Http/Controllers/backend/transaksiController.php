@@ -39,7 +39,9 @@ class transaksiController extends Controller
         $cart_id = str_replace('[', '', $cart_id);
         $cart_id = str_replace(']', '', $cart_id);
 
-        $cart_id = str_split($cart_id);
+        // $cart_id = str_split($cart_id);
+        $cart_id = explode(',', $cart_id);
+        // dd($cart_id);
         // $cart_id = implode(',', array_map('intval', $cart_id));
         // dd($cart_id);
         // return gettype($cart_id);
@@ -48,7 +50,7 @@ class transaksiController extends Controller
         // $cart = cart::where('user_id', Auth::user()->id)->where('status', "1")->get(["id", 'item_id', 'quantity'])->keyBy('id');
         // $item = item::withTrashed()->pluck('name', 'id');
 
-        $data['cart'] = DB::select('SELECT DISTINCT c.quantity,  i.name, i.price FROM carts as c JOIN items as i ON i.id = c.item_id WHERE c.id IN (' . implode(',', array_map('intval', $cart_id)) . ')');
+        $data['cart'] = DB::select('SELECT DISTINCT c.quantity,  i.name, i.price, i.promo FROM carts as c JOIN items as i ON i.id = c.item_id WHERE c.id IN (' . implode(',', array_map('intval', $cart_id)) . ')');
 
         return response()->json([
             "data" => $data,

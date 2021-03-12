@@ -36,6 +36,7 @@
                         <i class="far fa-user"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <a href="{{ route('admin_pengaturan') }}" class="dropdown-item">Ubah Password</a>
                         <a href="{{ route('admin_logout') }}" class="dropdown-item">Logout</a>
                     </div>
                 </li>

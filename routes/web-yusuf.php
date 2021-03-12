@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\kategoriController;
 use App\Http\Controllers\backend\posterController;
 use App\Http\Controllers\backend\transaksiController;
+use App\Http\Controllers\pengaturanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +16,12 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
-
+ */
 
 Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function () {
-    // Route::get('/kategori', function () {
-    //     return view('BackEnd.pages.kategori');
-    // })->name('kategori');
+    //Setting
+    Route::get('/pengaturan', [pengaturanController::class, 'index'])->name('pengaturan');
+    Route::post('/pengaturan/ubahPassword', [pengaturanController::class, 'edit_password'])->name('edit_password');
 
     //Kategori
     Route::get('/kategori', [kategoriController::class, 'getKategori'])->name('kategori_get');
@@ -38,4 +39,10 @@ Route::name('admin_')->prefix('4dm1n')->middleware('auth:admin')->group(function
     Route::get('/transaksiDetail/{id}', [transaksiController::class, 'showDetailTransaction'])->name('transaksi_detail');
     Route::get('/kirim/{id}', [transaksiController::class, 'kirim'])->name('kirim');
     Route::get('/batalkirim/{id}', [transaksiController::class, 'batalKirim'])->name('batal_kirim');
+
+    //Promo
+    Route::get('/hapusPromo/{id}', [DashboardController::class, 'hapusPromo'])->name('promo_hapus');
+
+    //Whatsapp
+    Route::get('/whatsapp', [DashboardController::class, 'kirimWhatsapp'])->name('whatsapp');
 });
