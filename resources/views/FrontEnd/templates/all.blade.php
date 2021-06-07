@@ -12,6 +12,20 @@
     @yield('css_before')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <script>
+        .footer {
+            background - color: white;
+            border - top: 1 px solid lightgray;
+        }
+        .about {
+            min - width: 310 px;
+        }
+        .contact {
+            border - left: 1 px solid lightgray;
+        }
+
+    </script>
     @yield('css_after')
 </head>
 
@@ -21,7 +35,9 @@
         @include('FrontEnd.templates.header')
     </header>
     <!-- header-end -->
-    @yield('content')
+    <div class="content" style="height:100px">
+        @yield('content')
+    </div>
     <!-- footer start -->
     <footer class="footer">
         @include('FrontEnd.templates.footer')
