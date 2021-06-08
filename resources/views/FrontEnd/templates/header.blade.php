@@ -29,7 +29,7 @@
     }
 
     .authButton {
-        font-size: 14px !important;
+        font-size: 12px !important;
     }
 
     .authButton:hover {
@@ -49,7 +49,7 @@
         margin-right: 30px;
         margin-top: auto;
         margin-bottom: auto;
-        font-size: 16px !important;
+        font-size: 14px !important;
     }
 
     .navbar-dark .navbar-nav .nav-link {
@@ -64,25 +64,24 @@
     }
 
     #search {
-        border-color: white;
-        /* lightgrey; */
+        border-color: lightgrey;
         border-top-left-radius: 30px;
         border-bottom-left-radius: 30px;
-        border-right: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
     }
 
     #search:focus {
-        /* border-left-color: lightgrey;
+        border-left-color: lightgrey;
         border-top-color: lightgrey;
-        border-bottom-color: lightgrey; */
+        border-bottom-color: lightgrey;
         border-right-color: none;
         box-shadow: none !important;
         outline: none !important;
     }
 
     #searchButton {
-        border-color: transparent;
-        /* #ced4da; */
+        border-color: lightgrey;
         border-top-right-radius: 30px;
         border-bottom-right-radius: 30px;
         border-left: 0;
@@ -149,20 +148,20 @@
 </style>
 
 <nav class="navbar navbar-expand-lg px-5 fixed-top navbar-dark bg-info">
-    <a class="navbar-brand" href="#">
-        <img class="logo" src="default/Logo-mentari.png" width="230" alt="Logo" />
+    <a class="navbar-brand font-semibold" href="#">
+        <img class="logo" src="default/Logo-mentari.png" alt="Logo" />
     </a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-collapse"
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#nav-collapse"
         aria-controls="nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     {{-- @if (str_contains(Route::currentRouteName(), 'home') || str_contains(Route::currentRouteName(), 'promo')) --}}
     <div class="search">
         <div class="search-group input-group mx-auto">
-            <input id="search" class="form-control input-xl" placeholder="Search">
+            <input id="search" class="form-control form-control-lg" placeholder="Search">
             <div class="input-group-append">
-                <button id="searchButton" class="light">
+                <button id="searchButton" type="button" class="btn btn-light">
                     <i class="fas fa-search" style="color:var(--primarycolor);width: 20px; height: 20px">
                     </i>
                 </button>
@@ -173,60 +172,88 @@
     <!-- </b-nav-form> -->
 
     <div class="collapse navbar-collapse" id="nav-collapse">
-        <ul class="navbar-nav ml-auto mr-5">
+        <ul class="navbar-nav ml-auto mr-4">
             <li class="shopping-cart nav-item">
-                <span>
-                    <strong><a class="nav-link" href="#">Home</a></strong>
-                </span>
+                <a class="nav-link" href="#">
+                    <span>
+                        <strong>Home</strong>
+                    </span>
+                </a>
             </li>
             <li class="shopping-cart nav-item">
-                <span>
-                    <strong><a class="nav-link" href="#">Promo</a></strong>
-                </span>
+                <a class="nav-link" href="#">
+                    <span>
+                        <strong>Promo</strong>
+                    </span>
+                </a>
             </li>
             {{-- @if (str_contains(Route::currentRouteName(), 'home')) --}}
-            <li class="kategori nav-item dropdown">
+            <li class="kategori shopping-cart nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <strong>Kategori</strong>
+                    <span>
+                        <strong>Kategori</strong>
+                    </span>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">
-                        Semua Produk
-                    </a>
-                    <a class="dropdown-item disabled">
-                        {{-- v-if="categoriesCount == 0"> --}}
-                        Tidak ditemukan
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        {{-- {{ category . name }} --}}isi kategori
-                    </a>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <li>
+                        <a class="dropdown-item" href="#">
+                            Semua Produk
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item disabled">
+                            {{-- v-if="categoriesCount == 0"> --}}
+                            Tidak ditemukan
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#">
+                            {{-- {{ category . name }} --}}isi kategori
+                        </a>
+                    </li>
+                </ul>
             </li>
             {{-- @endif --}}
-            <li class="shopping-cart nav-item d-flex align-item-center" style="color:white">
-                <span>
-                    <strong>
-                        <a class="nav-link" href="#">Keranjang
-                            <i class="fas fa-shopping-cart" style="width: 20px; height: 20px">
-                            </i> 0
-                        </a>
-                    </strong>
-                    {{-- <span class="icon"> --}}
-
-                </span>
-                {{-- <span class="tag my-auto">0</span> --}}
+            <li class="shopping-cart nav-item">
+                <a class="nav-link" href="#">
+                    <span>
+                        <strong>
+                            Keranjang
+                        </strong>
+                    </span>
+                    <span class="icon">
+                        <i class="fas fa-shopping-cart" style="width: 20px; height: 20px">
+                        </i>
+                    </span>
+                    <span class="tag my-auto">0</span>
+                </a>
             </li>
             <li class="authNav nav-item" v-if="check">
-                <button class="btn btn-outline-light btn-lg authButton ml-1">Daftar</button>
-                <button class="btn btn-outline-light btn-lg authButton ml-1">Masuk</button>
+                <a href="#" target="_self" class="nav-link">
+                    <button type="button" class="btn btn-outline-light authButton ml-1">Daftar</button>
+
+                    <button type="button" class="btn btn-outline-light authButton ml-1">Masuk</button>
+                </a>
             </li>
-            {{-- <b-nav-item-dropdown class="userNav" right v-else>
-                <template #button-content>
-                    <strong v-text="name"></strong>
-                </template>
-                <b-dropdown-item :to="{ name: 'profile' }">Profile</b-dropdown-item>
-                <b-dropdown-item href="#" @click.prevent="logout">Sign Out</b-dropdown-item>
-            </b-nav-item-dropdown> --}}
+            {{-- <li class="userNav shopping-cart nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <strong>Yusuf Raditya</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <li>
+                        <a href="#" class="dropdown-item">
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-item">
+                            Sign Out
+                        </a>
+                    </li>
+                </ul>
+            </li> --}}
         </ul>
     </div>
 </nav>
