@@ -1,151 +1,232 @@
-<!-- Header desktop -->
-<div class="container-menu-desktop">
-    <!-- Topbar -->
+<style>
+    :root {
+        --color: #ffffff;
+        --hover: rgb(236, 236, 236);
+        --primarycolor: rgb(16, 173, 244);
+    }
 
-    <div class="wrap-menu-desktop">
-        <nav class="limiter-menu-desktop container">
+    body {
+        min-height: 100%;
+        padding-top: 80px;
+    }
 
-            <!-- Logo desktop -->
-            <a href="#" class="logo">
-                <img src="frontend/images/icons/logo-01.png" alt="IMG-LOGO">
-            </a>
+    .navbar {
+        background-image: linear-gradient(rgb(16, 173, 244), rgb(73, 185, 233));
+        z-index: 5000;
+    }
 
-            <!-- Menu desktop -->
-            <div class="menu-desktop">
-                <ul class="main-menu">
-                    <li class="active-menu">
-                        <a href="index.html">Home</a>
-                        <ul class="sub-menu">
-                            <li><a href="index.html">Homepage 1</a></li>
-                            <li><a href="home-02.html">Homepage 2</a></li>
-                            <li><a href="home-03.html">Homepage 3</a></li>
-                        </ul>
-                    </li>
+    .search {
+        width: 25%;
+    }
 
-                    <li>
-                        <a href="product.html">Shop</a>
-                    </li>
+    .search-group {
+        width: 90%;
+    }
 
-                    <li class="label1" data-label1="hot">
-                        <a href="shoping-cart.html">Features</a>
-                    </li>
+    .authNav {
+        border-left: solid 1px white;
+        padding-left: 10px;
+    }
 
-                    <li>
-                        <a href="blog.html">Blog</a>
-                    </li>
+    .authButton {
+        font-size: 14px !important;
+    }
 
-                    <li>
-                        <a href="about.html">About</a>
-                    </li>
+    .authButton:hover {
+        color: var(--primarycolor) !important;
+    }
 
-                    <li>
-                        <a href="contact.html">Contact</a>
-                    </li>
-                </ul>
+    .kategori {
+        cursor: pointer;
+        margin-right: 30px;
+        margin-top: auto;
+        margin-bottom: auto;
+        font-size: 14px !important;
+    }
+
+    .shopping-cart {
+        cursor: pointer;
+        margin-right: 30px;
+        margin-top: auto;
+        margin-bottom: auto;
+        font-size: 16px !important;
+    }
+
+    .navbar-dark .navbar-nav .nav-link {
+        color: var(--color);
+    }
+
+    /* .shopping-cart:hover {
+    border-bottom: 1px solid lightgreen;
+} */
+    .shopping-cart:hover span {
+        color: var(--hover);
+    }
+
+    #search {
+        border-color: white;
+        /* lightgrey; */
+        border-top-left-radius: 30px;
+        border-bottom-left-radius: 30px;
+        border-right: 0;
+    }
+
+    #search:focus {
+        /* border-left-color: lightgrey;
+        border-top-color: lightgrey;
+        border-bottom-color: lightgrey; */
+        border-right-color: none;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    #searchButton {
+        border-color: transparent;
+        /* #ced4da; */
+        border-top-right-radius: 30px;
+        border-bottom-right-radius: 30px;
+        border-left: 0;
+        background-color: var(--color);
+    }
+
+    @media only screen and (max-width: 990px) {
+        body {
+            padding-top: 120px !important;
+        }
+
+        .logo {
+            width: 190px;
+        }
+
+        .search {
+            width: 100%;
+        }
+
+        .search-group {
+            width: 100%;
+        }
+
+        .kategori {
+            /* margin-left: auto !important;
+        margin-right: auto !important;
+        margin-top: 20px; */
+            margin: auto !important;
+            position: relative;
+        }
+
+        .shopping-cart {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .shopping-cart span {
+            font-size: 18px;
+        }
+
+        .authNav {
+            border-left: 0;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 0;
+            font-size: 18px;
+        }
+
+        .userNav {
+            border-left: 0;
+            margin: auto !important;
+            padding-left: 0;
+            font-size: 18px;
+        }
+
+        .col-7 {
+            flex-basis: 80% !important;
+            max-width: 80% !important;
+        }
+    }
+
+</style>
+
+<nav class="navbar navbar-expand-lg px-5 fixed-top navbar-dark bg-info">
+    <a class="navbar-brand" href="#">
+        <img class="logo" src="default/Logo-mentari.png" width="230" alt="Logo" />
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-collapse"
+        aria-controls="nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    {{-- @if (str_contains(Route::currentRouteName(), 'home') || str_contains(Route::currentRouteName(), 'promo')) --}}
+    <div class="search">
+        <div class="search-group input-group mx-auto">
+            <input id="search" class="form-control input-xl" placeholder="Search">
+            <div class="input-group-append">
+                <button id="searchButton" class="light">
+                    <i class="fas fa-search" style="color:var(--primarycolor);width: 20px; height: 20px">
+                    </i>
+                </button>
             </div>
+        </div>
+    </div>
+    {{-- @endif --}}
+    <!-- </b-nav-form> -->
 
-            <!-- Icon header -->
-            <div class="wrap-icon-header flex-w flex-r-m">
-                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                    <i class="zmdi zmdi-search"></i>
-                </div>
-
-                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                    data-notify="2">
-                    <i class="zmdi zmdi-shopping-cart"></i>
-                </div>
-
-                <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-                    data-notify="0">
-                    <i class="zmdi zmdi-favorite-outline"></i>
+    <div class="collapse navbar-collapse" id="nav-collapse">
+        <ul class="navbar-nav ml-auto mr-5">
+            <li class="shopping-cart nav-item">
+                <span>
+                    <strong><a class="nav-link" href="#">Home</a></strong>
+                </span>
+            </li>
+            <li class="shopping-cart nav-item">
+                <span>
+                    <strong><a class="nav-link" href="#">Promo</a></strong>
+                </span>
+            </li>
+            {{-- @if (str_contains(Route::currentRouteName(), 'home')) --}}
+            <li class="kategori nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <strong>Kategori</strong>
                 </a>
-            </div>
-        </nav>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">
+                        Semua Produk
+                    </a>
+                    <a class="dropdown-item disabled">
+                        {{-- v-if="categoriesCount == 0"> --}}
+                        Tidak ditemukan
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        {{-- {{ category . name }} --}}isi kategori
+                    </a>
+            </li>
+            {{-- @endif --}}
+            <li class="shopping-cart nav-item d-flex align-item-center" style="color:white">
+                <span>
+                    <strong>
+                        <a class="nav-link" href="#">Keranjang
+                            <i class="fas fa-shopping-cart" style="width: 20px; height: 20px">
+                            </i> 0
+                        </a>
+                    </strong>
+                    {{-- <span class="icon"> --}}
+
+                </span>
+                {{-- <span class="tag my-auto">0</span> --}}
+            </li>
+            <li class="authNav nav-item" v-if="check">
+                <button class="btn btn-outline-light btn-lg authButton ml-1">Daftar</button>
+                <button class="btn btn-outline-light btn-lg authButton ml-1">Masuk</button>
+            </li>
+            {{-- <b-nav-item-dropdown class="userNav" right v-else>
+                <template #button-content>
+                    <strong v-text="name"></strong>
+                </template>
+                <b-dropdown-item :to="{ name: 'profile' }">Profile</b-dropdown-item>
+                <b-dropdown-item href="#" @click.prevent="logout">Sign Out</b-dropdown-item>
+            </b-nav-item-dropdown> --}}
+        </ul>
     </div>
-</div>
-
-<!-- Header Mobile -->
-<div class="wrap-header-mobile">
-    <!-- Logo moblie -->
-    <div class="logo-mobile">
-        <a href="index.html"><img src="frontend/images/icons/logo-01.png" alt="IMG-LOGO"></a>
-    </div>
-
-    <!-- Icon header -->
-    <div class="wrap-icon-header flex-w flex-r-m m-r-15">
-        <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
-            <i class="zmdi zmdi-search"></i>
-        </div>
-
-        <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
-            <i class="zmdi zmdi-shopping-cart"></i>
-        </div>
-
-        <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
-            data-notify="0">
-            <i class="zmdi zmdi-favorite-outline"></i>
-        </a>
-    </div>
-
-    <!-- Button show menu -->
-    <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
-        <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-        </span>
-    </div>
-</div>
-
-
-<!-- Menu Mobile -->
-<div class="menu-mobile">
-    
-    <ul class="main-menu-m">
-        <li>
-            <a href="index.html">Home</a>
-            <ul class="sub-menu-m">
-                <li><a href="index.html">Homepage 1</a></li>
-                <li><a href="home-02.html">Homepage 2</a></li>
-                <li><a href="home-03.html">Homepage 3</a></li>
-            </ul>
-            <span class="arrow-main-menu-m">
-                <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </span>
-        </li>
-
-        <li>
-            <a href="product.html">Shop</a>
-        </li>
-
-        <li>
-            <a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
-        </li>
-
-        <li>
-            <a href="blog.html">Blog</a>
-        </li>
-
-        <li>
-            <a href="about.html">About</a>
-        </li>
-
-        <li>
-            <a href="contact.html">Contact</a>
-        </li>
-    </ul>
-</div>
-
-<!-- Modal Search -->
-<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-    <div class="container-search-header">
-        <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-            <img src="frontend/images/icons/icon-close2.png" alt="CLOSE">
-        </button>
-
-        <form class="wrap-search-header flex-w p-l-15">
-            <button class="flex-c-m trans-04">
-                <i class="zmdi zmdi-search"></i>
-            </button>
-            <input class="plh3" type="text" name="search" placeholder="Search...">
-        </form>
-    </div>
-</div>
+</nav>
