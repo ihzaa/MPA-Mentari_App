@@ -10,7 +10,13 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    public function register(Request $request)
+
+    public function registerGet()
+    {
+        return 'kasih return ke view nya register';
+    }
+
+    public function registerPost(Request $request)
     {
         $validated = $request->validate([
             'email' => 'required|unique:email|email',
@@ -28,6 +34,5 @@ class RegisterController extends Controller
 
         Auth::guard('user')->loginUsingId($user->id);
         return 'register berhasil dan otomatis login dan redirect ke halaman home';
-
     }
 }
