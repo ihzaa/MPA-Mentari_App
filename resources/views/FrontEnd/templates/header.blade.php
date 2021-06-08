@@ -229,12 +229,13 @@
                     <span class="tag my-auto">0</span>
                 </a>
             </li>
-            <li class="authNav nav-item" v-if="check">
-                <a href="#" target="_self" class="nav-link">
-                    <button type="button" class="btn btn-outline-light authButton ml-1">Daftar</button>
+            <li class="authNav nav-item" if="check">
+                <div class="nav-link align-item-center">
+                    <a href="{{ route('user.register.get') }}"
+                        class="btn btn-outline-light authButton ml-1">Daftar</a>
 
-                    <button type="button" class="btn btn-outline-light authButton ml-1">Masuk</button>
-                </a>
+                    <a class="btn btn-outline-light authButton ml-1">Masuk</a>
+                </div>
             </li>
             {{-- <li class="userNav shopping-cart nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown"

@@ -28,9 +28,9 @@
         @include('FrontEnd.templates.header')
     </header>
     <!-- header-end -->
-    <div class="content" style="height:100px">
-        @yield('content')
-    </div>
+    {{-- <div class="content" style="height:100px"> --}}
+    @yield('content')
+    {{-- </div> --}}
     <!-- footer start -->
     <footer class="footer">
         @include('FrontEnd.templates.footer')
