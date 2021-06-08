@@ -22,42 +22,46 @@
                         @csrf
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" aria-describedby="name"
-                                placeholder="Enter your name" name="nama" />
-                            <div class="alert alert-danger" role="alert" v-if="errors.name">
-                                {{-- {{ errors . name[0] }} --}}
-                            </div>
+                            <input type="text" class="form-control @error('nama') is-invalid @enderror" id="name"
+                                value="{{ old('nama') }}" aria-describedby="name" placeholder="Enter your name"
+                                name="nama" />
+                            @error('nama')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                id="exampleInputEmail1" value="{{ old('email') }}" aria-describedby="emailHelp"
                                 placeholder="Enter your email" name="email" />
-                            <div class="alert alert-danger" role="alert" v-if="errors.email">
-                                {{-- {{ errors . email[0] }} --}}
-                            </div>
+                            @error('email')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="name">Phone</label>
-                            <input type="text" class="form-control" id="phone" aria-describedby="phone"
-                                placeholder="Enter your phone" name="phone" />
-                            <div class="alert alert-danger" role="alert" v-if="errors.phone">
-                                {{-- {{ errors . phone[0] }} --}}
-                            </div>
+                            <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone"
+                                value="{{ old('phone') }}" aria-describedby="phone" placeholder="Enter your phone"
+                                name="phone" />
+                            @error('phone')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" placeholder="Password" name="password" />
-                            <div class="alert alert-danger" role="alert" v-if="errors.password">
-                                {{-- {{ errors . password[0] }} --}}
-                            </div>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                placeholder="Password" name="password" />
+                            @error('password')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="row">
                             <div class="col-md-9">
                                 <p class="mb-0 mr-2">
                                     Sudah punya akun?
-                                    <router-link :to="{ name: 'login' }">
+                                    <a href="#">
                                         Login
-                                    </router-link>
+                                    </a>
                                 </p>
                             </div>
                             <div class="col-md-3 text-right">
