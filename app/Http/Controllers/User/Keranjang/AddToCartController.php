@@ -13,7 +13,7 @@ class AddToCartController extends Controller
     {
         cart::create([
             'quantity' => 1,
-            'status' => 0,
+            'status' => '0',
             'item_id' => $request->item_id,
             'user_id' => Auth::user()->id
         ]);
