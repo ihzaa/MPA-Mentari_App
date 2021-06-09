@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,14 +17,9 @@ class RegisterController extends Controller
         return view('FrontEnd.pages.register');
     }
 
-    public function registerPost(Request $request)
+    public function registerPost(RegisterRequest $request)
     {
-        $validated = $request->validate([
-            'email' => 'required|unique:users|email',
-            'password' => 'required|min:8',
-            'nama' => 'required',
-            'phone' => 'numeric',
-        ]);
+        $request->validate();
 
         $user = User::create([
             'password' => Hash::make($request->password),
