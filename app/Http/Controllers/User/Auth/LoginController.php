@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,12 +16,9 @@ class LoginController extends Controller
         return 'ini kasih return ke blade halaman login';
     }
 
-    public function loginPost(Request $request)
+    public function loginPost(LoginRequest $request)
     {
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        $request->validate();
         $user = User::whereEmail($request->email)->first();
 
         if ($user == []) {
