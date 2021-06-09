@@ -13,7 +13,7 @@ class RegisterController extends Controller
 
     public function registerGet()
     {
-        return 'kasih return ke view nya register';
+        return view('FrontEnd.pages.register');
     }
 
     public function registerPost(Request $request)
@@ -22,14 +22,14 @@ class RegisterController extends Controller
             'email' => 'required|unique:users|email',
             'password' => 'required|min:8',
             'nama' => 'required',
-            'phone' => 'numeric'
+            'phone' => 'numeric',
         ]);
 
         $user = User::create([
             'password' => Hash::make($request->password),
             'name' => $request->nama,
             'email' => $request->email,
-            'phone' => $request->phone
+            'phone' => $request->phone,
         ]);
 
         Auth::guard('user')->loginUsingId($user->id);
