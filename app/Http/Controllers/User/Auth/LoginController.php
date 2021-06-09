@@ -18,7 +18,7 @@ class LoginController extends Controller
 
     public function loginPost(LoginRequest $request)
     {
-        $request->validate();
+        $request->validated();
         $user = User::whereEmail($request->email)->first();
 
         if ($user == []) {

@@ -27,7 +27,7 @@ class RegisterRequest extends FormRequest
             'email' => 'required|unique:users|email',
             'password' => 'required|min:8',
             'nama' => 'required',
-            'phone' => 'numeric',
+            'phone' => 'required|numeric',
         ];
     }
 
@@ -39,8 +39,9 @@ class RegisterRequest extends FormRequest
             'email.email' => 'Email yang diinputkan bukan dalam format Email',
             'password.required' => 'Password Wajib diisi',
             'password.min' => 'Password minimal 8 karakter',
-            'nama.require' => 'Nama harus diisi',
-            'phone.require' => 'Nomer Telfon harus diisi'
+            'nama.required' => 'Nama harus diisi',
+            'phone.required' => 'Nomer Telfon harus diisi',
+            'phone.numeric' => 'Nomer telfon harus angka'
         ];
     }
 }

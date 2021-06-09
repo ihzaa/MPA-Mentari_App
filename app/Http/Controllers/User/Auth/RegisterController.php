@@ -19,7 +19,7 @@ class RegisterController extends Controller
 
     public function registerPost(RegisterRequest $request)
     {
-        $request->validate();
+        $request->validated();
 
         $user = User::create([
             'password' => Hash::make($request->password),
