@@ -19,14 +19,6 @@
                     <hr />
                     <form method="POST" action="{{ route('user.login.post') }}" class="w-100">
                         @csrf
-                        @if (Session::get('icon'))
-                        <div
-                            class="alert alert-danger"
-                            role="alert" >
-                            {{session::get('text')}}
-
-                        </div>
-                        @endif
 
                         <div class="form-group">
                             <label for="exampleInputEmail1"
@@ -65,7 +57,15 @@
                             @enderror
 
                         </div>
-                        <div class="row">
+
+                        {{-- remember me  --}}
+
+                        <div class="rememberme">
+                            <label for="checkbox"><input type="checkbox" name="rememberme">
+                            remember me</label>
+                        </div>
+
+
                             <div class="col-md-9">
                                 <p class="mb-0 mr-2">
                                     Belum punya akun?
