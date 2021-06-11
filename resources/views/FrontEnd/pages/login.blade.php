@@ -61,7 +61,7 @@
                         {{-- remember me  --}}
 
                         <div class="rememberme">
-                            <label for="checkbox"><input type="checkbox" name="rememberme">
+                            <label for="checkbox"><input type="checkbox" name="remember">
                             remember me</label>
                         </div>
 
