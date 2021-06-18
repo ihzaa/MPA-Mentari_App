@@ -50,7 +50,7 @@
 
                     <div class="col-md-12 d-flex justify-content-between">
                         <p class="mb-0 mr-2">
-                            Belum punya akun?
+                            <a href="{{route('user.register.get')}}">Belum punya akun?</a>
                             {{-- <router-link :to="{ name: 'register' }"> --}}
                             Daftar Sekarang
                             {{-- </router-link> --}}
