@@ -65,7 +65,7 @@
                                 </p>
                             </div>
                             <div class="col-md-3 text-right">
-                                <button type="submit" class="btn btn-outline-info ml-auto">
+                                <button type="submit" class="btn btn-outline-primary ml-auto">
                                     Register
                                 </button>
                             </div>

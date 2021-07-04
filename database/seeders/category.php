@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\category as categoryModel;
+use App\Models\item;
 
 class category extends Seeder
 {
@@ -11,11 +13,11 @@ class category extends Seeder
      *
      * @return void
      */
-    // public function run()
-    // {
-    //     ModelsCategory::factory()
-    //         ->has(item::factory()->count(5))
-    //         ->count(10)
-    //         ->create();
-    // }
+    public function run()
+    {
+        categoryModel::factory()
+            ->has(item::factory()->count(5))
+            ->count(10)
+            ->create();
+    }
 }

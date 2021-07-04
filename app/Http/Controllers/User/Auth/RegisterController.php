@@ -5,7 +5,6 @@ namespace App\Http\Controllers\User\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\RegisterRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -29,6 +28,6 @@ class RegisterController extends Controller
         ]);
 
         Auth::guard('user')->loginUsingId($user->id);
-        return 'register berhasil dan otomatis login dan redirect ke halaman home';
+        return redirect(route('user.home'));
     }
 }

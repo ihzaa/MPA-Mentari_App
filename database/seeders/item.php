@@ -11,8 +11,8 @@ class item extends Seeder
      *
      * @return void
      */
-    // public function run()
-    // {
-    //     ModelsItem::factory()->count(50)->make();
-    // }
+    public function run()
+    {
+        ModelsItem::factory()->count(50)->make();
+    }
 }
