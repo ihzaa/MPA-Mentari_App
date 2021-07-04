@@ -15,9 +15,9 @@
         z-index: 5000;
     }
 
-    .search {
+    /* .search {
         width: 25%;
-    }
+    } */
 
     .search-group {
         width: 90%;
@@ -243,7 +243,7 @@
                 <li class="userNav shopping-cart nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <strong>Yusuf Raditya</strong>
+                        <strong>{{ Auth::user()->name }}</strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <li>

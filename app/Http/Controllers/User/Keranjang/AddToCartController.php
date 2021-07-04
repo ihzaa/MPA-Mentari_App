@@ -15,9 +15,9 @@ class AddToCartController extends Controller
             'quantity' => 1,
             'status' => '0',
             'item_id' => $request->item_id,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
         ]);
 
-        return 'ITEM BERHASIL DITAMBAHIN dan INI KEMBALIKAN KE HALAMAN SEBELUMNYA';
+        return back();
     }
 }
