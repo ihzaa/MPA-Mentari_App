@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
 
         DB::table('admins')->insert([
             'username' => 'admin',
-            'password' => Hash::make('123')
+            'password' => Hash::make('123'),
         ]);
 
-        // $this->call(category::class);
+        $this->call(category::class);
         // $this->call(item::class);
     }
 }

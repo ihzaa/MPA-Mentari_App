@@ -15,9 +15,9 @@
         z-index: 5000;
     }
 
-    .search {
+    /* .search {
         width: 25%;
-    }
+    } */
 
     .search-group {
         width: 90%;
@@ -157,17 +157,19 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     {{-- @if (str_contains(Route::currentRouteName(), 'home') || str_contains(Route::currentRouteName(), 'promo')) --}}
-    <div class="search">
-        <div class="search-group input-group mx-auto">
-            <input id="search" class="form-control form-control-lg" placeholder="Search">
-            <div class="input-group-append">
-                <button id="searchButton" type="button" class="btn btn-light">
-                    <i class="fas fa-search" style="color:var(--primarycolor);width: 20px; height: 20px">
-                    </i>
-                </button>
+    <form method="POST" action="">
+        <div class="search">
+            <div class="search-group input-group mx-auto">
+                <input id="search" class="form-control form-control-lg" placeholder="Search">
+                <div class="input-group-append">
+                    <button id="searchButton" type="button" class="btn btn-light">
+                        <i class="fas fa-search" style="color:var(--primarycolor);width: 20px; height: 20px">
+                        </i>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
     {{-- @endif --}}
     <!-- </b-nav-form> -->
 
@@ -229,32 +231,34 @@
                     <span class="tag my-auto">0</span>
                 </a>
             </li>
-            <li class="authNav nav-item" if="check">
-                <div class="nav-link align-item-center">
-                    <a href="{{ route('user.register.get') }}"
-                        class="btn btn-outline-light authButton ml-1">Daftar</a>
-
-                    <a class="btn btn-outline-light authButton ml-1">Masuk</a>
-                </div>
-            </li>
-            {{-- <li class="userNav shopping-cart nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <strong>Yusuf Raditya</strong>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <li>
-                        <a href="#" class="dropdown-item">
-                            Profile
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="dropdown-item">
-                            Sign Out
-                        </a>
-                    </li>
-                </ul>
-            </li> --}}
+            @if (!Auth::guard('user')->check())
+                <li class="authNav nav-item" if="check">
+                    <div class="nav-link align-item-center">
+                        <a href="{{ route('user.register.get') }}"
+                            class="btn btn-outline-light authButton ml-1">Daftar</a>
+                        <a class="btn btn-outline-light authButton ml-1">Masuk</a>
+                    </div>
+                </li>
+            @else
+                <li class="userNav shopping-cart nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <strong>{{ Auth::guard('user')->user()->name }}</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <li>
+                            <a href="#" class="dropdown-item">
+                                Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('user.logout') }}" class="dropdown-item">
+                                Sign Out
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endif
         </ul>
     </div>
 </nav>
