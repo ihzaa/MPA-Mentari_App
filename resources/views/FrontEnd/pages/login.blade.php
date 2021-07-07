@@ -48,32 +48,34 @@
                             remember me</label>
                     </div>
 
-                    <div class="col-md-12 d-flex justify-content-between">
-                        <p class="mb-0 mr-2">
-                            <a href="{{route('user.register.get')}}">Belum punya akun?</a>
-                            {{-- <router-link :to="{ name: 'register' }"> --}}
-                            Daftar Sekarang
+                    <div class="row">
+                        <div class="col-md-9">
+                            <p class="mb-0 mr-2">
+                                <a href="{{route('user.register.get')}}">Belum punya akun?</a>
+                                {{-- <router-link :to="{ name: 'register' }"> --}}
+                                Daftar Sekarang
+                                {{-- </router-link> --}}
+                            </p>
+                            Lupa password?
+                            {{-- <router-link --}}
+                            {{-- :to="{ name: 'reset-password' }" --}}
+                            {{-- > --}}
+                            Reset password
                             {{-- </router-link> --}}
-                        </p>
-                        Lupa password?
-                        {{-- <router-link --}}
-                        {{-- :to="{ name: 'reset-password' }" --}}
-                        {{-- > --}}
-                        Reset password
-                        {{-- </router-link> --}}
-                        </p>
+                            </p>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <button type="submit" class="btn btn-outline-info ml-auto">
+                                Login
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-md-3 text-right">
-                        <button type="submit" class="btn btn-outline-info ml-auto">
-                            Login
-                        </button>
-                    </div>
+                </form>
             </div>
-            </form>
         </div>
     </div>
 </div>
-</div>
+
 @endsection
 
 @section('jsAfter')
