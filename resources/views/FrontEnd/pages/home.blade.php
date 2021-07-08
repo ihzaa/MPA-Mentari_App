@@ -127,21 +127,6 @@
 @section('content')
     <div>
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-            {{-- <ol class="carousel-indicators">
-                @if ($data['carousel-count'] > 0)
-                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                @else
-                    @foreach ($data['carousel'] as $c)
-                        <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active">
-                        </li>
-                        <li data-target="#carouselExampleCaptions" data-slide-to="1" class="active">
-                        </li>
-                    @endforeach
-                @endif
-                <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-            </ol> --}}
-
             <div class="carousel-inner">
                 @if ($data['carousel-count'] == 0)
                     <div class="carousel-item active">
@@ -184,28 +169,36 @@
 
         {{-- <Product /> --}}
         <div class="mx-5 my-3">
-            {{-- <div class="row" v-if="!cekValue">
-                <div class="col-md-6" v-if="searchvalue != ''">
-                    <h4>
-                        <strong>Pencarian : {{ searchvalue }}</strong>
-                    </h4>
+            @if ($data['searchValue'] != null || $data['categoryId'] != null)
+                <div class="row">
+                    @if ($data['searchValue'] != null)
+                        <div class="col-md-6">
+                            <h4>
+                                <strong>Pencarian : {{ $data['searchValue'] }}</strong>
+                            </h4>
+                        </div>
+                    @else
+                        <div class="col-md-6">
+                            <h4>
+                                <strong>Pencarian : -</strong>
+                            </h4>
+                        </div>
+                    @endif
+                    @if ($data['categoryId'] != null)
+                        <div class="col-md-6">
+                            <h4>
+                                <strong>Kategori : {{ $data['categoryValue']->name }}</strong>
+                            </h4>
+                        </div>
+                    @else
+                        <div class="col-md-6" v-else>
+                            <h4>
+                                <strong>Kategori : -</strong>
+                            </h4>
+                        </div>
+                    @endif
                 </div>
-                <div class="col-md-6" v-else>
-                    <h4>
-                        <strong>Pencarian : -</strong>
-                    </h4>
-                </div>
-                <div class="col-md-6" v-if="!cekCategory">
-                    <h4>
-                        <strong>Kategori : {{ categoryname }}</strong>
-                    </h4>
-                </div>
-                <div class="col-md-6" v-else>
-                    <h4>
-                        <strong>Kategori : -</strong>
-                    </h4>
-                </div>
-            </div> --}}
+            @endif
             {{-- <div v-if="!load"> --}}
             {{-- <div v-if="productList"> --}}
             @if ($data['product'] != null)
@@ -251,7 +244,8 @@
                                     <div class="harga card-text text-right">
                                         <p>Rp. {{ number_format($p->promo, 0, ',', '.') }}</p>
                                         <p style="font-size:14px; margin-top:-20px">
-                                            <s class="text-danger">Rp. {{ number_format($p->price, 0, ',', '.') }}</s>
+                                            <s class="text-danger">Rp.
+                                                {{ number_format($p->price, 0, ',', '.') }}</s>
                                         </p>
                                     </div>
                                 @endif
@@ -295,16 +289,18 @@
                         </div>
                     @endforeach
                 </div>
-                <div class="text-center my-4" v-show="moreExists">
-                    <button class="btn btn-primary" id="loadMore">
-                        Tampilkan Lebih Banyak
-                    </button>
-                    <button class="btn btn-primary align-text-center ajax-load" style="font-size: 16px;display:none"
-                        disabled>
-                        <span class="spinner-border spinner-border-sm align-text-center" role="status"
-                            aria-hidden="true"></span> Loading...
-                    </button>
-                </div>
+                @if (count($data['product']) >= 15)
+                    <div class="text-center my-4">
+                        <button class="btn btn-primary" id="loadMore">
+                            Tampilkan Lebih Banyak
+                        </button>
+                        <button class="btn btn-primary align-text-center ajax-load" style="font-size: 16px;display:none"
+                            disabled>
+                            <span class="spinner-border spinner-border-sm align-text-center" role="status"
+                                aria-hidden="true"></span> Loading...
+                        </button>
+                    </div>
+                @endif
                 {{-- </div> --}}
             @else
                 <div class="text-center my-5" v-else>
@@ -313,10 +309,6 @@
                     </p>
                 </div>
             @endif
-            {{-- </div> --}}
-            {{-- <div class="text-center my-5" v-else>
-                <b-spinner style="width: 3rem; height: 3rem;"></b-spinner>
-            </div> --}}
         </div>
     </div>
 @endsection
@@ -357,33 +349,5 @@
                 })
             }
         )
-
-        function loadMore() {
-
-            let lastId = 15;
-            $.ajax({
-                    url: "{{ url('/product/') }}",
-                    datatype: "json",
-                    data: {
-                        lastId
-                    },
-                    type: "get",
-                    beforeSend: function() {
-
-                        $('.ajax-load').show();
-                    }
-                })
-                .done(function(response) {
-                    if (response.length == 0) {
-                        $('.auto-load').hide();
-                        return;
-                    }
-                    $('.auto-load').hide();
-                    $("#data-wrapper").append(response);
-                })
-            // .fail(function(jqXHR, ajaxOptions, thrownError) {
-            //     console.log('Server error occured');
-            // });
-        }
     </script>
 @endsection
