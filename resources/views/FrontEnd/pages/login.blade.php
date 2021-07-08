@@ -43,10 +43,10 @@
 
                     {{-- remember me  --}}
 
-                    <div class="rememberme">
+                    {{-- <div class="rememberme">
                         <label for="checkbox"><input type="checkbox" name="remember">
                             remember me</label>
-                    </div>
+                    </div> --}}
 
                     <div class="row">
                         <div class="col-md-9">
