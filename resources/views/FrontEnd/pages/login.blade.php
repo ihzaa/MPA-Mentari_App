@@ -51,9 +51,9 @@
                     <div class="row">
                         <div class="col-md-9">
                             <p class="mb-0 mr-2">
-                                <a href="{{route('user.register.get')}}">Belum punya akun?</a>
+                                Belum punya akun?
                                 {{-- <router-link :to="{ name: 'register' }"> --}}
-                                Daftar Sekarang
+                                    <a href="{{route('user.register.get')}}">Daftar Sekarang</a>
                                 {{-- </router-link> --}}
                             </p>
                             <p>
