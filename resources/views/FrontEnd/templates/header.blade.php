@@ -218,7 +218,7 @@
             </li>
             {{-- @endif --}}
             <li class="shopping-cart nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('user.keranjang.index')}}">
                     <span>
                         <strong>
                             Keranjang
