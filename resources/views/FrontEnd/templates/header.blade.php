@@ -144,7 +144,6 @@
             max-width: 80% !important;
         }
     }
-
 </style>
 
 <nav class="navbar navbar-expand-lg px-5 fixed-top navbar-dark bg-info">

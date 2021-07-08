@@ -12,7 +12,7 @@ class LoginController extends Controller
 {
     public function loginGet()
     {
-        return 'ini kasih return ke blade halaman login';
+        return view('FrontEnd.pages.login');
     }
 
     public function loginPost(LoginRequest $request)
