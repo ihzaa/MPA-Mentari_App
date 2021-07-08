@@ -56,11 +56,12 @@
                                 Daftar Sekarang
                                 {{-- </router-link> --}}
                             </p>
+                            <p>
                             Lupa password?
                             {{-- <router-link --}}
                             {{-- :to="{ name: 'reset-password' }" --}}
                             {{-- > --}}
-                            Reset password
+                            {{-- <a href="{{route('user.forgotPassword.get')}}"> Reset password </a> --}}
                             {{-- </router-link> --}}
                             </p>
                         </div>
