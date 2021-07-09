@@ -155,27 +155,29 @@
         aria-controls="nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    {{-- @if (str_contains(Route::currentRouteName(), 'home') || str_contains(Route::currentRouteName(), 'promo')) --}}
-    <form method="POST" action="">
-        <div class="search">
-            <div class="search-group input-group mx-auto">
-                <input id="search" class="form-control form-control-lg" placeholder="Search">
-                <div class="input-group-append">
-                    <button id="searchButton" type="button" class="btn btn-light">
-                        <i class="fas fa-search" style="color:var(--primarycolor);width: 20px; height: 20px">
-                        </i>
-                    </button>
+    @if (str_contains(Route::currentRouteName(), 'home') || str_contains(Route::currentRouteName(), 'promo'))
+        <form id="filter" method="GET" action="{{ route('user.home') }}">
+            <div class="search">
+                <div class="search-group input-group mx-auto">
+                    <input id="search" class="form-control form-control-lg" value="{{ $data['searchValue'] }}"
+                        placeholder="Search" name="search">
+                    <div class="input-group-append">
+                        <button id="searchButton" type="submit" class="btn btn-light">
+                            <i class="fas fa-search" style="color:var(--primarycolor);width: 20px; height: 20px">
+                            </i>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
-    {{-- @endif --}}
+            <input id="category-value" type="hidden" name="categoryValue" value="{{ $data['categoryId'] }}">
+        </form>
+    @endif
     <!-- </b-nav-form> -->
 
     <div class="collapse navbar-collapse" id="nav-collapse">
         <ul class="navbar-nav ml-auto mr-4">
             <li class="shopping-cart nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('user.home') }}">
                     <span>
                         <strong>Home</strong>
                     </span>
@@ -188,34 +190,36 @@
                     </span>
                 </a>
             </li>
-            {{-- @if (str_contains(Route::currentRouteName(), 'home')) --}}
-            <li class="kategori shopping-cart nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <span>
-                        <strong>Kategori</strong>
-                    </span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            Semua Produk
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item disabled">
-                            {{-- v-if="categoriesCount == 0"> --}}
-                            Tidak ditemukan
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            {{-- {{ category . name }} --}}isi kategori
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            {{-- @endif --}}
+            @if (str_contains(Route::currentRouteName(), 'home'))
+                <li class="kategori shopping-cart nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>
+                            <strong>Kategori</strong>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <li class="categoryValue" data-id="">
+                            <a class="dropdown-item">
+                                Semua Produk
+                            </a>
+                        </li>
+                        {{-- <li>
+                            <a class="dropdown-item disabled">
+                                v-if="categoriesCount == 0">
+                                Tidak ditemukan
+                            </a>
+                        </li> --}}
+                        @foreach ($data['category'] as $c)
+                            <li class="categoryValue" data-id="{{ $c->id }}">
+                                <a class="dropdown-item">
+                                    {{ $c->name }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+            @endif
             <li class="shopping-cart nav-item">
                 <a class="nav-link" href="{{route('user.keranjang.index')}}">
                     <span>

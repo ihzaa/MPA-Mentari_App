@@ -55,6 +55,14 @@
             });
         </script>
     @endif
+    <script>
+        $('.categoryValue').click(function() {
+            $('#category-value').remove();
+            $('#filter').append('<input type="hidden" name="categoryValue" value="' + $(this).data('id') + '">');
+            // $("#filter").valid();
+            $('#filter').submit();
+        });
+    </script>
     @yield('jsAfter')
 </body>
 
