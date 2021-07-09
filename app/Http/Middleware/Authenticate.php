@@ -22,7 +22,7 @@ class Authenticate extends Middleware
         if (Auth::guard('admin')->check()) {
             return redirect()->route('admin_index');
         } else if (Auth::guard('user')->check()) {
-            return 'hei hei not bad anda user';
+            return redirect()->route('user.home');
         }
     }
 }
