@@ -11,13 +11,19 @@ class AddToCartController extends Controller
 {
     public function addOneItem(Request $request)
     {
-        cart::create([
-            'quantity' => 1,
-            'status' => '0',
-            'item_id' => $request->item_id,
-            'user_id' => Auth::user()->id,
-        ]);
+        $itemInCart = cart::where('user_id', Auth::user()->id)->where('item_id', $request->item_id)->where('status', '0')->first();
+        if (!$itemInCart)
+            cart::create([
+                'quantity' => 1,
+                'status' => '0',
+                'item_id' => $request->item_id,
+                'user_id' => Auth::user()->id,
+            ]);
+        else {
+            $itemInCart->quantity++;
+            $itemInCart->save();
+        }
 
-        return back();
+        return back()->with('icon', 'success')->with('title', 'Berhasil!')->with('text', 'Item berhasil ditambahkan.');
     }
 }

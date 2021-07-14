@@ -239,7 +239,7 @@
                     <div class="nav-link align-item-center">
                         <a href="{{ route('user.register.get') }}"
                             class="btn btn-outline-light authButton ml-1">Daftar</a>
-                        <a class="btn btn-outline-light authButton ml-1">Masuk</a>
+                        <a href="{{route('user.login.get')}}" class="btn btn-outline-light authButton ml-1">Masuk</a>
                     </div>
                 </li>
             @else
