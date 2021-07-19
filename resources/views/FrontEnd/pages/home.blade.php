@@ -204,7 +204,7 @@
             @if ($data['product'] != null)
                 <div class="produk row justify-content-around align-item-center">
                     @foreach ($data['product'] as $p)
-                        <div class="card product-card my-2 p-3 mx-1" data-aos="zoom-in-up">
+                        <div class="card product-card my-2 p-3 mx-1" data-id="{{ $p->item_id }}" data-aos="zoom-in-up">
                             @if ($p->promo != null)
                                 <div class="ribbon ribbon-top-right">
                                     <span>Promo</span>
@@ -349,5 +349,10 @@
                 })
             }
         )
+
+        $('.product-card').click(function() {
+            window.location =
+                'detail/' + $(this).data('id');
+        });
     </script>
 @endsection

@@ -27,6 +27,7 @@ class LoginController extends Controller
             $remember = $request->has('remember') ? true : false;
             Auth::guard('user')->loginUsingId($user->id, $remember);
             return redirect()->intended(route('user.home'));
+            // return 'login berhasil';
         }
         return back()->with('icon', 'error')->with('title', 'Maaf')->with('text', 'email atau password salah!');
     }
