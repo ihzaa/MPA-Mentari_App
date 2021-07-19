@@ -26,8 +26,8 @@ class LoginController extends Controller
         if (Hash::check($request->password, $user->password)) {
             $remember = $request->has('remember') ? true : false;
             Auth::guard('user')->loginUsingId($user->id, $remember);
-            // return redirect()->intended(route('namenya route home'));
-            return 'login berhasil';
+            return redirect()->intended(route('user.home'));
+            // return 'login berhasil';
         }
         return back()->with('icon', 'error')->with('title', 'Maaf')->with('text', 'email atau password salah!');
     }

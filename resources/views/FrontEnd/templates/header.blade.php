@@ -144,11 +144,12 @@
             max-width: 80% !important;
         }
     }
+
 </style>
 
 <nav class="navbar navbar-expand-lg px-5 fixed-top navbar-dark bg-info">
     <a class="navbar-brand font-semibold" href="#">
-        <img class="logo" src="default/Logo-mentari.png" alt="Logo" />
+        <img class="logo" src="{{ URL::asset('default/Logo-mentari.png') }}" alt="Logo" />
     </a>
 
     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#nav-collapse"
@@ -221,7 +222,7 @@
                 </li>
             @endif
             <li class="shopping-cart nav-item">
-                <a class="nav-link" href="{{route('user.keranjang.index')}}">
+                <a class="nav-link" href="{{ route('user.keranjang.index') }}">
                     <span>
                         <strong>
                             Keranjang
@@ -239,7 +240,8 @@
                     <div class="nav-link align-item-center">
                         <a href="{{ route('user.register.get') }}"
                             class="btn btn-outline-light authButton ml-1">Daftar</a>
-                        <a class="btn btn-outline-light authButton ml-1">Masuk</a>
+                        <a href="{{ route('user.login.get') }}"
+                            class="btn btn-outline-light authButton ml-1">Masuk</a>
                     </div>
                 </li>
             @else
